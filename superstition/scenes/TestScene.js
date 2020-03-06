@@ -1,9 +1,10 @@
 function TestScene(){
+    let poseNet = new PoseRecognition();
     this.setup = ()=>{
-        console.log(this.sceneManager);
+        poseNet.setup();   
     }
 
     this.draw = ()=>{
-        background(50);
+        poseNet.update();
     }
 }
