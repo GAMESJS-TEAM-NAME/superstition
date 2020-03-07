@@ -6,6 +6,14 @@ function CrackScene() {
     let toReset = false;
     let inputHandler = null;
 
+
+    this.sceneSet = (scene)=> {
+        person.position.x = 0;
+        person.visible = false;
+        toReset = true;
+        this.sceneManager.showScene(CarScene);
+    }
+
     this.setup = () => {
         person = createSprite(-personWidth, height / 1.2, personWidth, personHeight);
         person.shapeColor = color(22, 255, 22);
@@ -52,22 +60,27 @@ function CrackScene() {
 
         const isJumped = inputHandler.checkJump();
         console.log(isJumped);
-        if(isJumped){
+        if (isJumped) {
             person.velocity.y = -personVelocity * 2;
-            setTimeout(_=>{
+            setTimeout(_ => {
                 person.velocity.y = personVelocity * 2;
-            } , 250)
+            }, 250)
         }
-
-        if(person.position.y >= height / 1.2){
+        //RETURN TO GROUND
+        if (person.position.y >= height / 1.2) {
             person.position.y = height / 1.2;
+        }
+        console.log(dist(person.position.x, person.position.y, crackPos.x, crackPos.y));
+        if (dist(person.position.x, person.position.y, crackPos.x, crackPos.y) < crackPos.radius*2) {
+            this.sceneSet(GameOverScene);
         }
 
 
         if (person.position.x > width + personWidth) {
-            person.position.x = 0;
+            // person.position.x = 0;
             // person.visible = false;
             // toReset = true;
+            this.sceneSet(CatScene);
             // this.sceneManager.showScene(GameOverScene);
         }
 
