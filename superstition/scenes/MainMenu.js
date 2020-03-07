@@ -7,6 +7,8 @@ function MainMenu(){
 
     this.draw = ()=>{
         background(bg);
+        const playerModel = this.sceneManager.player();
+        playerModel.draw();
         if(keyIsPressed)
             showRandomScene(this);
     }
