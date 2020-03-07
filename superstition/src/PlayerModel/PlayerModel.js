@@ -1,8 +1,10 @@
 class PlayerModel {
 
-    constructor(color)
+    constructor(color, x = width/2, y = height)
     {
         this.color = color;
+        this.x = x;
+        this.y = y;
     }
 
 
@@ -185,7 +187,7 @@ class PlayerModel {
             // let playerWidth = Math.abs(arms.right.shoulder.x - arms.left.shoulder.x);
             // let playerHeight = Math.abs(head.left.eye.x - legs.left.foot.x);
             // line(width/2, 0, width/2, height);
-            translate((width / 2) - 64, height - 200);
+            translate(this.x - 64, this.y - 200);
             
 
             this.drawArms(arms);
