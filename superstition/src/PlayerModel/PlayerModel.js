@@ -174,7 +174,7 @@ class PlayerModel {
                 }
             }
 
-            console.log(PoseRecognition.pose);
+            //console.log(PoseRecognition.pose);
 
             //Draw the model
             push();

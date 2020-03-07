@@ -4,7 +4,8 @@ function CarScene() {
     let car;
     let bg;
     let player;
-    let carSpeed = 0.005;
+    let carSpeed = 0.001;
+    let carAcceleration = 1;
     let carSize = height / 10000;
     let carAcceleration = 1;
     let hint;
@@ -13,8 +14,14 @@ function CarScene() {
     let loss = false;
     let loaded = false;
 
+    this.keyPressed = ()=>{
+        if(key.toUpperCase() == "D"){
+            window.debugView = !window.debugView;
+        }
+    }
+
     this.setup = () => {
-        
+        window.debugView = true;
         // console.log(this.sceneManager);
         // bloodImg = loadImage("./assets/backgrounds/blood.png");
         // bg = loadImage("./assets/backgrounds/cyberpunk_city.png");
