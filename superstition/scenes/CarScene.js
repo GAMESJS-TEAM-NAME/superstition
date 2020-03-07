@@ -8,6 +8,8 @@ function CarScene(){
     let bg;
     let bloodImg;
     let blood;
+    
+    let player;
 
     this.setup = ()=>{
         console.log(this.sceneManager);
@@ -17,10 +19,12 @@ function CarScene(){
 
         car = createSprite(width/2, height/1.7, carWidth, carHeight);
         car.shapeColor = color(22, 25, 122);
-        
+
         blood = createSprite(width / 2, -height, width, height);
         blood.addImage(bloodImg);
         blood.scale = 1.15;
+        
+        // player = new PlayerModel(color(255,0,0));
 
         blood.visible = false;
         // bg = loadImage("./assets/backgrounds/cyberpunk_city.png");
@@ -57,13 +61,15 @@ function CarScene(){
         background(150);
         image(bg, 0, 0, width, height);
 
-        displayHint();
+        // displayHint();
 
-        car.changeAnimation("test_animation");
-    
         if (mouseIsPressed) {
             reset();
         }
+        
+        // player.draw();
+
+        car.changeAnimation("test_animation");
 
         if (car.scale > width / 3000 && blood.position.y < height / 1.5) {
             gameOver();
