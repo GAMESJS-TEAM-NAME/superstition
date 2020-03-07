@@ -155,6 +155,7 @@ function CarScene() {
         // if (blood.position.y < height / 1.5) 
         //     blood.position.y += 8;
         // drawSprites();
+        toReset = true;
         car.visible = false;
         background(39, 44, 72);
         displayText("dead", width / 10, width / 2, height / 3.5);

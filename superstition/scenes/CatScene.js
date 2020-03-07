@@ -14,14 +14,12 @@ function CatScene() {
         // let catAnimation = cat.addAnimation("test_animation", 
         //                                     "./assets/cat/test_cat0001.png", 
         //                                     "./assets/cat/test_cat0002.png");
-        // catAnimation.frameDelay = 10;
-        console.log("Setup cat");
-        reset();
-        
+        // catAnimation.frameDelay = 10;        
         cat.velocity.x = catVelocity;
     }
 
     function reset(){
+        console.log("Resetting cat...");
         toReset = false;
         cat.visible = true;
         cat.position.x = -catWidth;
@@ -30,10 +28,11 @@ function CatScene() {
     let toShowInfoText = true;
 
     this.draw = () => {
+        console.log(cat.position.x);
+
         if (toReset) 
             reset();
 
-        console.log(cat.position.x);
         image(bg, 0, 0, width, height);
         setTimeout(_ => {
             toShowInfoText = false;
@@ -48,7 +47,7 @@ function CatScene() {
         }
 
         // if(inputHandler.checkRotate()){
-            if(keyIsPressed){
+            if(keyIsPressed && key.toUpperCase() == "W"){
             console.log("You win korega!");
             cat.visible = false;
             toReset = true;
@@ -56,6 +55,8 @@ function CatScene() {
         }
 
         if (cat.position.x > width + catWidth) {
+            cat.visible = false;
+            toReset = true;
             this.sceneManager.showScene(GameOverScene);
         }
 

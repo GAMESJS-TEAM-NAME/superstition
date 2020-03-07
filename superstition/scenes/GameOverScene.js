@@ -6,11 +6,15 @@ function GameOverScene(){
         fill(0);
         textSize(34);
         text("Game Over!" , width/2 , height/2);
+        textSize(14);
+        text("Press any key to retry..." , width/2 , height / 2 + 200);
         pop();
     }
 
     this.draw = ()=>{
-        
+        if(keyIsPressed){
+            this.sceneManager.showScene(CatScene);
+        }   
     }
 
 }
