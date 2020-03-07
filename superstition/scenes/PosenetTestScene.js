@@ -18,7 +18,6 @@ function PoseNetScene() {
 
     this.jump = function()
     {
-        console.log("jumping");
     }
 
 }

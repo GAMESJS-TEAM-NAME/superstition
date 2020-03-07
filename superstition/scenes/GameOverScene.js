@@ -1,11 +1,11 @@
 function GameOverScene(){
     this.setup = ()=>{
-        
+        console.log("Game over setup...");
     }
 
     this.draw = ()=>{
         if(keyIsPressed){
-            this.sceneManager.showScene(CrackScene);
+            showRandomScene(this);
         }   
         console.log("Game over");
         background(255);

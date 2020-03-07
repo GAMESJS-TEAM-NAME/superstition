@@ -27,9 +27,6 @@ function CarScene() {
     this.draw = () => {
         if (toReset)
             reset();
-
-        console.log(car.scale, + " " + width / 2000);
-
         car.visible = true;
         background(150);
         image(bg, 0, 0, width, height);
@@ -66,10 +63,10 @@ function CarScene() {
     }
 
     this.winScreen = () => {
-        console.log("you win - car");
         toReset = true;
         car.visible = false;
-        this.sceneManager.showScene(CrackScene);
+        showRandomScene(this);
+        // this.sceneManager.showScene(CrackScene);
     }
     this.gameOver = () => {
         toReset = true;
