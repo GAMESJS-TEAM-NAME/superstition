@@ -3,7 +3,7 @@ function setup(){
     var mgr = new SceneManager();
     mgr.wire();
     //TODO change scene
-    mgr.showScene(PoseNetScene);
+    mgr.showScene(CarScene);
 }
 
 function draw(){
