@@ -1,7 +1,6 @@
 function CarScene() {
     let car;
     let bg;
-    let player;
     let carSpeed = 0.002;
     let carAcceleration = 1;
     const carSize = height / 10000;
@@ -21,7 +20,6 @@ function CarScene() {
         car = createSprite(width / 2, height / 1.7, 0, 0);
         car.addAnimation("wheels", "./assets/car/vwcar1.png", "./assets/car/vwcar2.png");
         car.scale = carSize;
-        player = new PlayerModel(color(255, 0, 0));
     }
 
     this.draw = () => {
@@ -42,7 +40,7 @@ function CarScene() {
             car.changeAnimation("wheels");
             drawSprites();
             updateScale();
-            player.draw();
+            this.sceneManager.player.draw();
         }
     }
 

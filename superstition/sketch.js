@@ -8,8 +8,10 @@ function setup() {
     mgr.wire();
     //TODO change scene
     loadScenes(mgr);
-    mgr.showScene(GhostScene);
+    mgr.showScene(LoadingScene);
     window.debugView = false;
+    mgr.player = new PlayerModel(color(255,60,150), width*0.1, height);
+
 
 }
 

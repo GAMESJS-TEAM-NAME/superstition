@@ -9,7 +9,8 @@ function LoadingScene(){
         text("Loading..." , width/2 , height/2);
         if(PoseRecognition.isLoaded){
             background(255);
-            this.sceneManager.showScene(MainMenu);
+            // this.sceneManager.showScene(MainMenu);
+            this.sceneManager.showScene(CatScene);
         }
     }
 }
