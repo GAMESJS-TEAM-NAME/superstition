@@ -11,13 +11,9 @@ class InputHandler extends EventTarget
         if(PoseRecognition.prediction != null){
             const predictionProb = PoseRecognition.prediction.map(e => parseFloat(e.probability.toFixed(2)));
             const maxPredictionProb = Math.max(...predictionProb);
-            const highestPrediction
-            console.log(predictionProb , maxPrediction)
-            // const prediction = PoseRecognition.prediction;
-            // for (let i = 0; i < 6; i++) {
-            //     const classPrediction = prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-            //     console.log(classPrediction)
-            // }
+            const highestPrediction = PoseRecognition.prediction.filter(e => e.probability.toFixed(2) == maxPredictionProb)[0];
+            console.log(highestPrediction.className);
+            this.dispatchEvent(new Event(highestPrediction.className))   
         }
             
         //         this.dispatchEvent(new Event('jump'));

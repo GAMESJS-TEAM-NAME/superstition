@@ -7,13 +7,13 @@
 
 
 
-window.debug = true;
+window.debugView = true;
 
 const PoseRecognition = {
     prediction: null,
     pose: null,
     run: () => {
-        let model, webcam, ctx, labelContainer, maxPredictions;
+        let model, webcam, ctx, _canvas;
         async function init() {
             const modelInfo = {
                 model: './src/PoseRecognition/model/model.json',
@@ -31,34 +31,29 @@ const PoseRecognition = {
             await webcam.setup(); // request access to the webcam
             await webcam.play();
             window.requestAnimationFrame(posenetLoop);
-            const canvas = document.getElementById("posenetCanvas");
-            console.log(canvas);
-            canvas.width = width; canvas.height = height;
-            ctx = canvas.getContext("2d");
+            _canvas = document.getElementById("posenetCanvas");
+            console.log(_canvas);
+            
+            _canvas.width = width; _canvas.height = height;
+            ctx = _canvas.getContext("2d");
         }
 
         async function posenetLoop(timestamp) {
+            //Show debug canvas
+            _canvas.hidden = !window.debugView;
             webcam.update(); // update the webcam frame
             await predict();
             window.requestAnimationFrame(posenetLoop);
         }
 
         async function predict() {
-            // Prediction #1: run input through posenet
-            // estimatePose can take in an image, video or canvas html element
             const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
-            // Prediction 2: run input through teachable machine classification model
             const prediction = await model.predict(posenetOutput);
             PoseRecognition.pose = pose;
             PoseRecognition.prediction = prediction;
-            for (let i = 0; i < maxPredictions; i++) {
-                const classPrediction =
-                    prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-                // console.log(classPrediction);
-            }
-
-            // finally draw the poses
-            if(window.debug)
+            
+            // Only draw keypoints when in debug mode
+            if(window.debugView)
                 drawPose(pose);
         }
 
