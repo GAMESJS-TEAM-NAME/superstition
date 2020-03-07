@@ -4,7 +4,7 @@ function CarScene() {
     let car;
     let bg;
     let player;
-    let carSpeed = 0.005;
+    let carSpeed = 0.001;
     let carAcceleration = 1;
     let carSize = height / 10000;
     let hint = "AVOID THE CAR";
@@ -12,8 +12,14 @@ function CarScene() {
     let loss = false;
     let win = false;
 
+    this.keyPressed = ()=>{
+        if(key.toUpperCase() == "D"){
+            window.debugView = !window.debugView;
+        }
+    }
+
     this.setup = () => {
-        
+        window.debugView = true;
         // console.log(this.sceneManager);
         // bloodImg = loadImage("./assets/backgrounds/blood.png");
         // bg = loadImage("./assets/backgrounds/cyberpunk_city.png");
