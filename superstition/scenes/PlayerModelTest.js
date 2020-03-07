@@ -79,7 +79,7 @@ function PlayerModelTest() {
             stroke(0);
             strokeWeight(10)
             noFill();
-
+            translate(width / 2, height / 2);
             //draw left arm
             bezier(
                 arms.left.wrist.x,
@@ -124,28 +124,47 @@ function PlayerModelTest() {
                 legs.right.hip.x,
                 legs.right.hip.y
             );
-            pop();
 
-            let bodyX = head.x;
-            let bodyY = (head.y + (legs.left.foot.y + legs.right.foot.y) / 2) / 2;
-            let bodyHeight = Math.abs(head.y - (legs.left.foot.y + legs.right.foot.y) / 2)*0.7;
+            // let bodyX = head.x;
+            // let bodyY = (head.y + (legs.left.foot.y + legs.right.foot.y) / 2) / 2;
+            // let bodyHeight = Math.abs(head.y - (legs.left.foot.y + legs.right.foot.y) / 2)*0.7;
             let bodyWidth = Math.abs(arms.right.shoulder.x - arms.left.shoulder.x)*1.3;
 
-            console.log(Math.abs(arms.right.shoulder.x - arms.left.shoulder.x));
+            // console.log(Math.abs(arms.right.shoulder.x - arms.left.shoulder.x));
 
             push();
             fill(0);
-            ellipse(
-                bodyX,
-                bodyY,
-                bodyWidth,
-                bodyHeight
+            // ellipse(
+            //     bodyX,
+            //     bodyY,
+            //     bodyWidth,
+            //     bodyHeight
 
+            // )
+
+            beginShape();
+            curveVertex(head.x, head.y);
+            curveVertex(arms.right.shoulder.x, arms.right.shoulder.y);
+            curveVertex(legs.right.hip.x, legs.right.hip.y);
+            curveVertex(legs.left.hip.x, legs.left.hip.y);
+            curveVertex(arms.left.shoulder.x, arms.left.shoulder.y);
+            curveVertex(head.x, head.y);
+            endShape();
+
+            ellipse(
+                head.x,
+                head.y,
+                bodyWidth
             )
+
+
             pop();
 
+            pop();
+
+
         }
-        
+
     }
 
 

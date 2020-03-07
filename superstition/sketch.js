@@ -6,7 +6,7 @@ function setup() {
     mgr.wire();
     //TODO change scene
     mgr.showScene(PlayerModelTest);
-    window.debug = false;
+    window.debugView = true
 
 }
 
