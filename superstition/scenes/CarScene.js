@@ -7,7 +7,6 @@ function CarScene() {
     let carSpeed = 0.001;
     let carAcceleration = 1;
     let carSize = height / 10000;
-    let carAcceleration = 1;
     let hint;
     let winText;
     let win = false;
