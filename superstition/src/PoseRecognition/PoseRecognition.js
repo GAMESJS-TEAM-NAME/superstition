@@ -1,16 +1,9 @@
-//TODO 
-/**
- * TODO 
- * Fix this file , is very ugly :(
- */
-
-
-
-
 window.debugView = true;
 
 const PoseRecognition = {
+    isLoaded: false,
     prediction: null,
+    prevPose: null,
     pose: null,
     run: () => {
         let model, webcam, ctx, _canvas;
@@ -24,16 +17,13 @@ const PoseRecognition = {
             maxPredictions = model.getTotalClasses();
 
             // Convenience function to setup a webcam
-            const width = 400;
-            const height = 400;
-            const flip = true; // whether to flip the webcam
-            webcam = new tmPose.Webcam(width, height, flip); // width, height, flip
+            const width = 150;
+            const height = 150;
+            webcam = new tmPose.Webcam(width, height, true); // width, height, flip
             await webcam.setup(); // request access to the webcam
             await webcam.play();
             window.requestAnimationFrame(posenetLoop);
             _canvas = document.getElementById("posenetCanvas");
-            console.log(_canvas);
-            
             _canvas.width = width; _canvas.height = height;
             ctx = _canvas.getContext("2d");
         }
@@ -41,13 +31,15 @@ const PoseRecognition = {
         async function posenetLoop(timestamp) {
             //Show debug canvas
             _canvas.hidden = !window.debugView;
-            webcam.update(); // update the webcam frame
+            webcam.update(); 
             await predict();
             window.requestAnimationFrame(posenetLoop);
         }
 
         async function predict() {
+            PoseRecognition.prevPose = PoseRecognition.pose;
             const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+            PoseRecognition.isLoaded = true;
             const prediction = await model.predict(posenetOutput);
             PoseRecognition.pose = pose;
             PoseRecognition.prediction = prediction;
