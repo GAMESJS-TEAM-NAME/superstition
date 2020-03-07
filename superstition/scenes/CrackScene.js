@@ -7,7 +7,7 @@ function CrackScene() {
     let toReset = false;
     let inputHandler = null;
     let img = null;
-
+    let crackPos = null;
 
     this.sceneSet = (scene)=> {
         person.position.x = 0;
@@ -20,6 +20,7 @@ function CrackScene() {
     }
 
     this.setup = () => {
+        crackPos = { x: random(width/2 - 50 , width / 2 + 50), y: height - 100, radius: 50 };
         person = createSprite(-personWidth, height / 1.2, personWidth, personHeight);
         person.shapeColor = color(22, 255, 22);
         bg = loadImage("./assets/backgrounds/crackbg.png");
@@ -31,12 +32,13 @@ function CrackScene() {
     function reset() {
         console.log("Resetting crack...");
         toReset = false;
+        crackPos.x = random(width/2 - 300 , width / 2 + 300);
         person.visible = true;
         person.position.x = -personWidth;
     }
 
     let toShowInfoText = true;
-    let crackPos = { x: width / 2, y: height - 100, radius: 50 };
+    
 
     this.draw = () => {
         if (toReset)

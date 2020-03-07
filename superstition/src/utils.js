@@ -11,3 +11,8 @@ const showRandomScene = (currentSceneHandler) => {
 
     currentSceneHandler.sceneManager.showScene(gameScenes[randomIndex]);
 }
+
+//TODO pe60 da go napravi
+const calculateScale = (val)=>{
+
+}
