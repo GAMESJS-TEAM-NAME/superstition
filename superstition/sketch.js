@@ -2,13 +2,10 @@
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
 
-    // var mgr = new SceneManager();
-    // mgr.wire();
-    // //TODO change scene
-    // mgr.showScene(TestScene);
-    window.debug = false;
+    var mgr = new SceneManager();
+    mgr.wire();
+    //TODO change scene
+    mgr.showScene(TestScene);
+
 }
 
-async function draw() {
-    console.log(PoseRecognition.prediction)
-}
