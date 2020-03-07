@@ -7,7 +7,6 @@ function CarScene() {
     let carSpeed = 0.001;
     let carAcceleration = 1;
     let carSize = height / 10000;
-    let carAcceleration = 1;
     let hint;
     let winText;
     let win = false;
@@ -68,9 +67,9 @@ function CarScene() {
             background(150);
             image(bg, 0, 0, width, height);
             if (loss) {
-                gameOver();
+                this.gameOver();
             } else if (win) {
-                winScreen();
+                this.winScreen();
             } else if (car.scale > width / 2000) {
                 drawSprites();
                 if (PoseRecognition.pose) {
@@ -107,9 +106,12 @@ function CarScene() {
         car.scale += carSpeed * carAcceleration;
     }
 
-    function winScreen() {
+    this.winScreen = ()=> {
         background(39, 44, 72);
         animation(winText, width / 2, height / 1.7);
+        setTimeout(_=>{
+            this.sceneManager.showScene(CatScene);
+        } , 2000);
     }
 
     function loadingHint() {
@@ -119,7 +121,7 @@ function CarScene() {
         drawSprites();
     }
 
-    function gameOver() {
+    this.gameOver = ()=>{
         // blood.visible = true;
         // if (blood.position.y < height / 1.5) 
         //     blood.position.y += 8;
@@ -127,6 +129,9 @@ function CarScene() {
 
         background(39, 44, 72);
         displayText("dead", width / 10, width / 2, height / 3.5);
+        setTimeout(_=>{
+            this.sceneManager.showScene(GameOverScene);
+        } , 2000);
     }
 
 }
