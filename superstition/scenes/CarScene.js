@@ -114,9 +114,15 @@ function CarScene() {
         car.scale += carSpeed * carAcceleration;
     }
 
-    this.winScreen = ()=> {
+    function reset() {
+        car.position.x = width / 2
+        car.position.y = height / 1.7
         car.visible = false;
-        this.sceneManager.
+    }
+
+    this.winScreen = () => {
+        reset();
+        console.log("you win - car");
         background(39, 44, 72);
         animation(winText, width / 2, height / 1.7);
         setTimeout(_=>{
@@ -132,7 +138,7 @@ function CarScene() {
         drawSprites();
     }
 
-    this.gameOver = ()=>{
+    this.gameOver = () => {
         // blood.visible = true;
         // if (blood.position.y < height / 1.5) 
         //     blood.position.y += 8;

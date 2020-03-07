@@ -3,6 +3,7 @@ function CatScene() {
     let catWidth = 50;
     let catHeight;
     let catVelocity = 8;
+    let toReset = false;
     let inputHandler = null;
 
     this.setup = () => {
@@ -21,14 +22,18 @@ function CatScene() {
     }
 
     function reset(){
+        toReset = false;
         cat.visible = true;
         cat.position.x = -catWidth;
-    
     }
     
     let toShowInfoText = true;
 
     this.draw = () => {
+        if (toReset) 
+            reset();
+
+        console.log(cat.position.x);
         image(bg, 0, 0, width, height);
         setTimeout(_ => {
             toShowInfoText = false;
@@ -46,14 +51,14 @@ function CatScene() {
             if(keyIsPressed){
             console.log("You win korega!");
             cat.visible = false;
+            toReset = true;
             this.sceneManager.showScene(CarScene);
         }
 
         if (cat.position.x > width + catWidth) {
             this.sceneManager.showScene(GameOverScene);
         }
-
-
+        
         // cat.changeAnimation("test_animation");
         drawSprites();
     }
