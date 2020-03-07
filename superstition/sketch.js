@@ -3,12 +3,12 @@
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
-    window.gameScenes = [CatScene , CarScene , CrackScene];
+    window.gameScenes = [CatScene , CarScene , CrackScene, GhostScene];
     var mgr = new SceneManager();
     mgr.wire();
     //TODO change scene
     loadScenes(mgr);
-    mgr.showScene(GhostScene);
+    mgr.showScene(LoadingScene);
     window.debugView = false;
 
 }
