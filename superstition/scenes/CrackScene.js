@@ -2,9 +2,11 @@ function CrackScene() {
     let person;
     let personWidth = 50;
     let personHeight = 150;
-    let personVelocity = 8;
+    let personVelocity = 5;
+    let jumpSpeed = 2.2;
     let toReset = false;
     let inputHandler = null;
+    let img = null;
 
 
     this.sceneSet = (scene)=> {
@@ -20,7 +22,8 @@ function CrackScene() {
     this.setup = () => {
         person = createSprite(-personWidth, height / 1.2, personWidth, personHeight);
         person.shapeColor = color(22, 255, 22);
-        bg = loadImage("./assets/backgrounds/city.png");
+        bg = loadImage("./assets/backgrounds/crackbg.png");
+        img = loadImage("./assets/crack/crack.png");
         inputHandler = new InputHandler();
         person.velocity.x = personVelocity;
     }
@@ -40,7 +43,11 @@ function CrackScene() {
             reset();
 
         image(bg, 0, 0, width, height);
-        ellipse(crackPos.x, crackPos.y, crackPos.radius);
+        //ellipse(crackPos.x, crackPos.y, crackPos.radius);
+        push();
+        imageMode(CENTER);
+        image(img, crackPos.x, crackPos.y, crackPos.radius*4, crackPos.radius*4)
+        pop();
         setTimeout(_ => {
             toShowInfoText = false;
         }, 2000);
@@ -54,9 +61,12 @@ function CrackScene() {
         }
         const isJumped = inputHandler.checkJump();
         if (isJumped) {
-            person.velocity.y = -personVelocity * 2;
+            //Jump
+            person.velocity.y = -personVelocity * jumpSpeed + 5;
+            person.velocity.x = personVelocity * jumpSpeed;
             setTimeout(_ => {
-                person.velocity.y = personVelocity * 2;
+                person.velocity.y = personVelocity * jumpSpeed;
+                person.velocity.x = personVelocity;
             }, 250)
         }
         //RETURN TO GROUND
