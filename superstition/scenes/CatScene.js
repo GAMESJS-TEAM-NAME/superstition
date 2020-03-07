@@ -51,15 +51,15 @@ function CatScene() {
         if (inputHandler.checkRotate()) {
             cat.visible = false;
             toReset = true;
-            // showRandomScene(this);
-            this.sceneManager.showScene(CatScene);
+            showRandomScene(this);
+            // this.sceneManager.showScene(CatScene);
         }
 
         if (cat.position.x > width + catWidth) {
             cat.visible = false;
             toReset = true;
-            // this.sceneManager.showScene(GameOverScene);
-            this.sceneManager.showScene(CatScene);
+            this.sceneManager.showScene(GameOverScene);
+            // this.sceneManager.showScene(CatScene);
         }
 
         cat.changeAnimation("test_animation");
