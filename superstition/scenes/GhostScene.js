@@ -27,10 +27,10 @@ function GhostScene() {
         ghosts = new Group();
         bg = loadImage('./assets/backgrounds/basement.png');
         for (let i = 0; i < numGhosts; i++) {
-            let ghost = createSprite(random(width / 6, width / 1.3), random(height / 6, height / 1.3));
+            let ghost = createSprite(random(width / 6, width / 1.3), random(height / 6, height / 1.6));
             let ghostAnimation = ghost.addAnimation('floating', './assets/ghost/ghost1.png', './assets/ghost/ghost2.png');
             ghostAnimation.frameDelay = 10;   
-            ghostScale = width / random(2000, 4000);
+            ghostScale = width / random(2000, 3000);
             ghost.scale = ghostScale
 
             if (Math.random() > 0.5)
@@ -55,7 +55,7 @@ function GhostScene() {
         // console.log(numGhosts);
         image(bg, 0, 0, width, height);
 
-        console.log(ghosts.length);
+        // console.log(ghosts.length);
         
         if (toShowInfoText) {
             push();
@@ -77,17 +77,25 @@ function GhostScene() {
             let currGhost = ghosts[removedIndex];
             let wrist = inputHandler.checkSalting();
             if (wrist) {
-                console.log(wrist);
+                // console.log(wrist);
                 let saltShakerX = map(wrist.x , 0 , window.posenetCanvasWidth , 0 , width);
                 let saltShakerY = map(wrist.y , 0 , window.posenetCanvasHeight , 0 , height);
 
-                console.log(saltShakerX + " " + saltShakerY);
+                // console.log(saltShakerX + " " + saltShakerY);
                 fill(244);
-                ellipse(saltShakerX, saltShakerY, 20, 20);
+                ellipse(saltShakerX, saltShakerY, 100, 100);
+
+                // console.log(ghosts[0].position.x);
+                for (let i = 0; i < ghosts.length; i++) {
+                    if (Math.abs(saltShakerX - ghosts[i].position.x) < 100 && 
+                        Math.abs(saltShakerY - ghosts[i].position.y) < 100) {
+                            console.log("salting ghost #" + i);
+                        }
+                }
 
                 if (hp > 0) {
-                    console.log(hp);
-                    hp -= 10;
+                    //console.log(hp);
+                    //hp -= 10;
                     tint(255, hp)
                     currGhost;
                 } else {
