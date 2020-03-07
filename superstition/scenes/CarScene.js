@@ -78,6 +78,14 @@ function CarScene() {
                 else {
                     win = true;
                 }
+                // if(keyIsPressed){
+                //     const k = key.toUpperCase();
+                //     if(k == "W"){
+                //         win = true;
+                //     }else if(k == "L"){
+                //         lose = true;
+                //     }
+                // }
             } else {
                 car.changeAnimation("wheels");
                 drawSprites();
@@ -107,9 +115,12 @@ function CarScene() {
     }
 
     this.winScreen = ()=> {
+        car.visible = false;
+        this.sceneManager.
         background(39, 44, 72);
         animation(winText, width / 2, height / 1.7);
         setTimeout(_=>{
+            winText.stop();
             this.sceneManager.showScene(CatScene);
         } , 2000);
     }
@@ -126,7 +137,7 @@ function CarScene() {
         // if (blood.position.y < height / 1.5) 
         //     blood.position.y += 8;
         // drawSprites();
-
+        car.visible = false;
         background(39, 44, 72);
         displayText("dead", width / 10, width / 2, height / 3.5);
         setTimeout(_=>{

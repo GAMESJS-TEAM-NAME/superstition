@@ -1,5 +1,6 @@
 function GameOverScene(){
     this.setup = ()=>{
+        console.log("Game over");
         background(255);
         push();
         fill(0);

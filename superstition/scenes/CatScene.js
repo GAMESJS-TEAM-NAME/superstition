@@ -14,10 +14,18 @@ function CatScene() {
         //                                     "./assets/cat/test_cat0001.png", 
         //                                     "./assets/cat/test_cat0002.png");
         // catAnimation.frameDelay = 10;
-
+        console.log("Setup cat");
+        reset();
+        
         cat.velocity.x = catVelocity;
     }
 
+    function reset(){
+        cat.visible = true;
+        cat.position.x = -catWidth;
+    
+    }
+    
     let toShowInfoText = true;
 
     this.draw = () => {
@@ -34,7 +42,8 @@ function CatScene() {
             pop();
         }
 
-        if(inputHandler.checkRotate()){
+        // if(inputHandler.checkRotate()){
+            if(keyIsPressed){
             console.log("You win korega!");
             cat.visible = false;
             this.sceneManager.showScene(CarScene);
@@ -42,7 +51,6 @@ function CatScene() {
 
         if (cat.position.x > width + catWidth) {
             this.sceneManager.showScene(GameOverScene);
-            cat.position.x = -catWidth;
         }
 
 
