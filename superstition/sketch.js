@@ -5,8 +5,8 @@ function setup() {
     var mgr = new SceneManager();
     mgr.wire();
     //TODO change scene
-    mgr.showScene(PlayerModelTest);
-    window.debugView = true;
+    mgr.showScene(CarScene);
+    window.debugView = false;
 
 }
 
