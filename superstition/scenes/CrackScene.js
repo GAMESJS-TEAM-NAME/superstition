@@ -20,7 +20,7 @@ function CrackScene() {
     }
 
     this.setup = () => {
-        crackPos = { x: random(width/2 - 50 , width / 2 + 50), y: height - 100, radius: 50 };
+        crackPos = { x: random(width/2 - 200 , width / 2 + 200), y: height - 100, radius: 50 };
         person = createSprite(-personWidth, height / 1.2, personWidth, personHeight);
         person.shapeColor = color(22, 255, 22);
         bg = loadImage("./assets/backgrounds/crackbg.png");
@@ -30,10 +30,10 @@ function CrackScene() {
     }
 
     function reset() {
-        console.log("Resetting crack...");
         toReset = false;
         crackPos.x = random(width/2 - 300 , width / 2 + 300);
         person.visible = true;
+        toShowInfoText = true;
         person.position.x = -personWidth;
     }
 
@@ -45,20 +45,19 @@ function CrackScene() {
             reset();
 
         image(bg, 0, 0, width, height);
-        //ellipse(crackPos.x, crackPos.y, crackPos.radius);
+
         push();
         imageMode(CENTER);
         image(img, crackPos.x, crackPos.y, crackPos.radius*4, crackPos.radius*4)
         pop();
+
         setTimeout(_ => {
             toShowInfoText = false;
         }, 2000);
 
         if (toShowInfoText) {
             push();
-            fill(0, 255, 0);
-            textSize(34);
-            text("Jump over the cracks!", width / 2, height / 4);
+            drawText("Jump over the crack" , width / 2 ,200 , 34 , color(0 , 255 , 0))
             pop();
         }
         const isJumped = inputHandler.checkJump();
@@ -81,12 +80,13 @@ function CrackScene() {
 
 
         if (person.position.x > width + personWidth) {
+            this.sceneManager.score++;
             this.sceneSet(null);
         }
 
         drawSprites();
     }
-    
+
     this.keyPressed = () => {
         if (key.toUpperCase() == "D") {
             window.debugView = !window.debugView;

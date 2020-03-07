@@ -11,7 +11,6 @@ function CatScene() {
     this.setup = () => {
         bg = loadImage("./assets/backgrounds/cat_level.png");
         cat = createSprite(-catWidth, height / 1.3, catWidth, catHeight);
-        //cat.shapeColor = color(22, 25, 22);
         inputHandler = new InputHandler();
         let catAnimation = cat.addAnimation("test_animation", 
                                             "./assets/cat/cat_walk1.png", 
@@ -22,9 +21,9 @@ function CatScene() {
     }
 
     function reset(){
-        console.log("Resetting cat...");
         toReset = false;
         cat.visible = true;
+        toShowInfoText = true;
         cat.position.x = -catWidth;
     }
     
@@ -35,29 +34,30 @@ function CatScene() {
             reset();
 
         image(bg, 0, 0, width, height);
+        this.sceneManager.player.draw();
         setTimeout(_ => {
             toShowInfoText = false;
         }, 2000);
 
         if (toShowInfoText) {
-            push();
-            fill(0 , 255 , 0);
-            textSize(34);
-            text("Quick! rotate!", width / 2, height / 4);
-            pop();
+            // push();
+            drawText("Quick! Rotate!" , width / 2 ,200 , 34 , color(0 , 0 , 0))
+            // pop();
         }
 
         if (inputHandler.checkRotate()) {
             cat.visible = false;
             toReset = true;
+            this.sceneManager.score++;
             showRandomScene(this);
-            // this.sceneManager.showScene(CarScene);
+            // this.sceneManager.showScene(CatScene);
         }
 
         if (cat.position.x > width + catWidth) {
             cat.visible = false;
             toReset = true;
             this.sceneManager.showScene(GameOverScene);
+            // this.sceneManager.showScene(CatScene);
         }
 
         cat.changeAnimation("test_animation");

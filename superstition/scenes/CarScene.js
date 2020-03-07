@@ -1,11 +1,12 @@
 function CarScene() {
     let car;
     let bg;
-    let player;
     let carSpeed = 0.002;
     let carAcceleration = 1;
     const carSize = height / 10000;
     let toReset = false;
+    let toShowInfoText = true;
+    let backgroundIndex = 0;
 
     this.keyPressed = () => {
         if (key.toUpperCase() == "D") {
@@ -19,14 +20,23 @@ function CarScene() {
         bg = loadImage("./assets/backgrounds/street_desert.png");
         // bg = loadImage("./assets/backgrounds/street_synth.png");
         car = createSprite(width / 2, height / 1.7, 0, 0);
-        car.addAnimation("wheels", "./assets/car/vwcar1.png", "./assets/car/vwcar2.png");
+        car.addAnimation("wheels", "./assets/car/vwcar1.png");
         car.scale = carSize;
-        player = new PlayerModel(color(255, 0, 0));
     }
 
     this.draw = () => {
         if (toReset)
             reset();
+
+        setTimeout(_ => {
+            toShowInfoText = false;
+        }, 2000);
+
+        if (toShowInfoText) {
+            push();
+            drawText("Jump away from the car!", width / 2, 200, 34, color(255, 0 , 0))
+            pop();
+        }
         car.visible = true;
         background(150);
         image(bg, 0, 0, width, height);
@@ -42,7 +52,7 @@ function CarScene() {
             car.changeAnimation("wheels");
             drawSprites();
             updateScale();
-            player.draw();
+            this.sceneManager.player.draw();
         }
     }
 
@@ -56,6 +66,7 @@ function CarScene() {
         car.position.y = height / 1.7
         carAcceleration = 1;
         car.scale = carSize;
+        toShowInfoText = true;
 
         toReset = false;
         win = false;
@@ -65,6 +76,7 @@ function CarScene() {
     this.winScreen = () => {
         toReset = true;
         car.visible = false;
+        this.sceneManager.score++;
         showRandomScene(this);
         // this.sceneManager.showScene(CrackScene);
     }

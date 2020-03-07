@@ -7,6 +7,16 @@ class PlayerModel {
         this.y = y;
     }
 
+    setColor(c)
+    {
+        this.color = c;
+    }
+
+    setCoordinates(x, y)
+    {
+        this.x = x;
+        this.y = y;
+    }
 
     drawArms(arms) {
         //draw left arm

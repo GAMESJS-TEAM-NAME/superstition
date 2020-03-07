@@ -5,11 +5,13 @@ function LoadingScene(){
     }
     this.draw = async ()=>{
         background(120);
-        fill(0);
-        text("Loading..." , width/2 , height/2);
+        drawText("Loading..." , width / 2 , height / 2 , 18 , 0);
+
         if(PoseRecognition.isLoaded){
             background(255);
-            this.sceneManager.showScene(MainMenu);
+            showRandomScene(this);
+            // this.sceneManager.showScene(MainMenu);
+            // this.sceneManager.showScene(CatScene);
         }
     }
 }
