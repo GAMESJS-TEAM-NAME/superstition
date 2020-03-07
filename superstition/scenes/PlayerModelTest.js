@@ -1,158 +1,153 @@
 function PlayerModelTest() {
-    let input;
-
-
-    this.setup = function () {
-        input = new InputHandler();
-        input.addEventListener("jump", this.jump);
-    }
 
     this.draw = function () {
-        //console.log("KUUUUREC");
-        input.update();
-
-        let arms = {
-            left: {
-                shoulder: {
-                    x: 70,
-                    y: 50
-                },
-                elbow: {
-                    x: 50,
-                    y: 90
-                },
-                wrist: {
-                    x: 70,
-                    y: 110
-                }
-            },
-            right: {
-                shoulder: {
-                    x: 110,
-                    y: 50
-                },
-                elbow: {
-                    x: 130,
-                    y: 90
-                },
-                wrist: {
-                    x: 110,
-                    y: 110
-                }
-            }
-        }
-
-        let legs = {
-            left: {
-                hip: {
-                    x: 70,
-                    y: 150
-                },
-                knee: {
-                    x: 50,
-                    y: 190
-                },
-                foot: {
-                    x: 70,
-                    y: 210
-                }
-            },
-            right: {
-                hip: {
-                    x: 110,
-                    y: 150
-                },
-                knee: {
-                    x: 130,
-                    y: 190
-                },
-                foot: {
-                    x: 110,
-                    y: 210
-                }
-            }
-        }
-
-        let head = {
-            x: 90,
-            y: 50
-        }
-
-
-
         background(220);
-        push();
-        stroke(0);
-        strokeWeight(4)
-        noFill();
 
-        //draw left arm
-        bezier(
-            arms.left.wrist.x,
-            arms.left.wrist.y,
-            arms.left.elbow.x,
-            arms.left.elbow.y,
-            arms.left.elbow.x,
-            arms.left.elbow.y,
-            arms.left.shoulder.x,
-            arms.left.shoulder.y
-        );
-        //draw right arm
-        bezier(
-            arms.right.wrist.x,
-            arms.right.wrist.y,
-            arms.right.elbow.x,
-            arms.right.elbow.y,
-            arms.right.elbow.x,
-            arms.right.elbow.y,
-            arms.right.shoulder.x,
-            arms.right.shoulder.y
-        );
-        //draw left leg
-        bezier(
-            legs.left.foot.x,
-            legs.left.foot.y,
-            legs.left.knee.x,
-            legs.left.knee.y,
-            legs.left.knee.x,
-            legs.left.knee.y,
-            legs.left.hip.x,
-            legs.left.hip.y
-        );
-        //draw right leg
-        bezier(
-            legs.right.foot.x,
-            legs.right.foot.y,
-            legs.right.knee.x,
-            legs.right.knee.y,
-            legs.right.knee.x,
-            legs.right.knee.y,
-            legs.right.hip.x,
-            legs.right.hip.y
-        );
-        pop();
+        if (PoseRecognition.pose) {
+
+            let arms = {
+                left: {
+                    shoulder: {
+                        x: PoseRecognition.pose.keypoints[5].position.x,
+                        y: PoseRecognition.pose.keypoints[5].position.y
+                    },
+                    elbow: {
+                        x: PoseRecognition.pose.keypoints[7].position.x,
+                        y: PoseRecognition.pose.keypoints[7].position.y
+                    },
+                    wrist: {
+                        x: PoseRecognition.pose.keypoints[9].position.x,
+                        y: PoseRecognition.pose.keypoints[9].position.y
+                    }
+                },
+                right: {
+                    shoulder: {
+                        x: PoseRecognition.pose.keypoints[6].position.x,
+                        y: PoseRecognition.pose.keypoints[6].position.y
+                    },
+                    elbow: {
+                        x: PoseRecognition.pose.keypoints[8].position.x,
+                        y: PoseRecognition.pose.keypoints[8].position.y
+                    },
+                    wrist: {
+                        x: PoseRecognition.pose.keypoints[10].position.x,
+                        y: PoseRecognition.pose.keypoints[10].position.y
+                    }
+                }
+            }
+
+            let legs = {
+                left: {
+                    hip: {
+                        x: PoseRecognition.pose.keypoints[11].position.x,
+                        y: PoseRecognition.pose.keypoints[11].position.y
+                    },
+                    knee: {
+                        x: PoseRecognition.pose.keypoints[13].position.x,
+                        y: PoseRecognition.pose.keypoints[13].position.y
+                    },
+                    foot: {
+                        x: PoseRecognition.pose.keypoints[15].position.x,
+                        y: PoseRecognition.pose.keypoints[15].position.y
+                    }
+                },
+                right: {
+                    hip: {
+                        x: PoseRecognition.pose.keypoints[12].position.x,
+                        y: PoseRecognition.pose.keypoints[12].position.y
+                    },
+                    knee: {
+                        x: PoseRecognition.pose.keypoints[14].position.x,
+                        y: PoseRecognition.pose.keypoints[14].position.y
+                    },
+                    foot: {
+                        x: PoseRecognition.pose.keypoints[16].position.x,
+                        y: PoseRecognition.pose.keypoints[16].position.y
+                    }
+                }
+            }
+
+            let head = {
+                x: PoseRecognition.pose.keypoints[0].position.x,
+                y: PoseRecognition.pose.keypoints[0].position.y
+            }
+
+
+
+
+            push();
+            stroke(0);
+            strokeWeight(10)
+            noFill();
+
+            //draw left arm
+            bezier(
+                arms.left.wrist.x,
+                arms.left.wrist.y,
+                arms.left.elbow.x,
+                arms.left.elbow.y,
+                arms.left.elbow.x,
+                arms.left.elbow.y,
+                arms.left.shoulder.x,
+                arms.left.shoulder.y
+            );
+            //draw right arm
+            bezier(
+                arms.right.wrist.x,
+                arms.right.wrist.y,
+                arms.right.elbow.x,
+                arms.right.elbow.y,
+                arms.right.elbow.x,
+                arms.right.elbow.y,
+                arms.right.shoulder.x,
+                arms.right.shoulder.y
+            );
+            //draw left leg
+            bezier(
+                legs.left.foot.x,
+                legs.left.foot.y,
+                legs.left.knee.x,
+                legs.left.knee.y,
+                legs.left.knee.x,
+                legs.left.knee.y,
+                legs.left.hip.x,
+                legs.left.hip.y
+            );
+            //draw right leg
+            bezier(
+                legs.right.foot.x,
+                legs.right.foot.y,
+                legs.right.knee.x,
+                legs.right.knee.y,
+                legs.right.knee.x,
+                legs.right.knee.y,
+                legs.right.hip.x,
+                legs.right.hip.y
+            );
+            pop();
+
+            let bodyX = head.x;
+            let bodyY = (head.y + (legs.left.foot.y + legs.right.foot.y) / 2) / 2;
+            let bodyHeight = Math.abs(head.y - (legs.left.foot.y + legs.right.foot.y) / 2)*0.7;
+            let bodyWidth = Math.abs(arms.right.shoulder.x - arms.left.shoulder.x)*1.3;
+
+            console.log(Math.abs(arms.right.shoulder.x - arms.left.shoulder.x));
+
+            push();
+            fill(0);
+            ellipse(
+                bodyX,
+                bodyY,
+                bodyWidth,
+                bodyHeight
+
+            )
+            pop();
+
+        }
         
-        let bodyX = head.x;
-        let bodyY = (head.y + (legs.left.foot.y + legs.right.foot.y )/2)/2;
-        let bodyHeight = Math.abs(head.y - (legs.left.foot.y + legs.right.foot.y )/2);
-        let bodyWidth = Math.abs(arms.right.shoulder.x - arms.right.shoulder.y);
-
-        push();
-        fill(0);
-        ellipse(
-            bodyX,
-            bodyY,
-            bodyWidth,
-            bodyHeight
-            
-        )
-        
-        pop();
-
     }
 
-    this.jump = function () {
-        console.log("jumping");
-    }
+
 
 }
