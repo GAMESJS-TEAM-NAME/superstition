@@ -1,7 +1,7 @@
 function CatScene() {
     let cat;
     let catWidth = 50;
-    let catHeight;
+    let catHeight = 50;
     let catVelocity = 8;
     let toReset = false;
     let inputHandler = null;
@@ -33,6 +33,8 @@ function CatScene() {
         if (toReset) 
             reset();
 
+        
+
         image(bg, 0, 0, width, height);
         setTimeout(_ => {
             toShowInfoText = false;
@@ -42,7 +44,7 @@ function CatScene() {
             push();
             fill(0 , 255 , 0);
             textSize(34);
-            text("Quick rotate!", width / 2, height / 4);
+            text("Quick! rotate!", width / 2, height / 4);
             pop();
         }
 

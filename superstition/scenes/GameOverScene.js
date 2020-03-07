@@ -1,5 +1,12 @@
 function GameOverScene(){
     this.setup = ()=>{
+        
+    }
+
+    this.draw = ()=>{
+        if(keyIsPressed){
+            this.sceneManager.showScene(CatScene);
+        }   
         console.log("Game over");
         background(255);
         push();
@@ -9,12 +16,6 @@ function GameOverScene(){
         textSize(14);
         text("Press any key to retry..." , width/2 , height / 2 + 200);
         pop();
-    }
-
-    this.draw = ()=>{
-        if(keyIsPressed){
-            this.sceneManager.showScene(CatScene);
-        }   
     }
 
 }
