@@ -58,13 +58,13 @@ function CatScene() {
         if (cat.position.x > width + catWidth) {
             this.sceneManager.showScene(GameOverScene);
         }
-        
+
         // cat.changeAnimation("test_animation");
         drawSprites();
     }
     this.keyPressed = ()=>{
         if(key.toUpperCase() == "D"){
-            window.debugView = !window.debugView
+            window.debugView = !window.debugView;
         }
     }
 

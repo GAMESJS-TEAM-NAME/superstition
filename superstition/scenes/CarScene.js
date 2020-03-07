@@ -6,12 +6,13 @@ function CarScene() {
     let player;
     let carSpeed = 0.001;
     let carAcceleration = 1;
-    let carSize = height / 10000;
+    const carSize = height / 10000;
     let hint;
     let winText;
     let win = false;
     let loss = false;
     let loaded = false;
+    let toReset = false;
 
     this.keyPressed = ()=>{
         if(key.toUpperCase() == "D"){
@@ -60,10 +61,15 @@ function CarScene() {
     
     this.draw = () => {
         if (PoseRecognition.pose || loaded) {
-            loaded = true;
-            hint.visible = false;
-            car.visible = true;
+            if (toReset) 
+                reset();
 
+            hint.visible = false;
+            loaded = true;
+            
+            console.log(car.scale, + " " + width / 2000);
+
+            car.visible = true;
             background(150);
             image(bg, 0, 0, width, height);
             if (loss) {
@@ -117,18 +123,24 @@ function CarScene() {
     function reset() {
         car.position.x = width / 2
         car.position.y = height / 1.7
-        car.visible = false;
+        carAcceleration = 1;
+        car.scale = carSize;
+        
+        toReset = false;
+        win = false;
     }
 
     this.winScreen = () => {
-        reset();
         console.log("you win - car");
+        toReset = true;
+        // loaded = false;
+        car.visible = false;
         background(39, 44, 72);
         animation(winText, width / 2, height / 1.7);
-        setTimeout(_=>{
-            winText.stop();
-            this.sceneManager.showScene(CatScene);
-        } , 2000);
+
+        winText.stop();
+        this.sceneManager.showScene(CatScene);
+        
     }
 
     function loadingHint() {
