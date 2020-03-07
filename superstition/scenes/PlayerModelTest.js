@@ -8,7 +8,6 @@ function PlayerModelTest() {
     this.draw = function () 
     {
         background(220);
-
         player.draw();
     }
 

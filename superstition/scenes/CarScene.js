@@ -60,9 +60,9 @@ function CarScene() {
             image(bg, 0, 0, width, height);
 
             if (loss) {
-                gameOver();
+                this.gameOver();
             } else if (win) {
-                winScreen();
+                this.winScreen();
             } else if (car.scale > width / 2000) {
                 drawSprites();
 
@@ -107,12 +107,15 @@ function CarScene() {
         car.scale += carSpeed * carAcceleration;
     }
 
-    function winScreen() {
+    this.winScreen = ()=> {
         background(39, 44, 72);
         displayText("GJ", width / 10, width / 2, height / 3.5);
+        setTimeout(_=>{
+            this.sceneManager.showScene(CatScene);
+        } , 2000);
     }
 
-    function gameOver() {
+    this.gameOver = ()=>{
         // blood.visible = true;
         // if (blood.position.y < height / 1.5) 
         //     blood.position.y += 8;
@@ -120,5 +123,8 @@ function CarScene() {
 
         background(39, 44, 72);
         displayText("dead", width / 10, width / 2, height / 3.5);
+        setTimeout(_=>{
+            this.sceneManager.showScene(GameOverScene);
+        } , 2000);
     }
 }

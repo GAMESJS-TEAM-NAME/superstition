@@ -65,7 +65,7 @@ class InputHandler extends EventTarget
         return false;
     }
 
-    checkRotating(){
+    checkRotate(){
         if(PoseRecognition.pose != null){
             let rightShoulder =  {
                 x: PoseRecognition.pose.keypoints[6].position.x,
@@ -84,7 +84,7 @@ class InputHandler extends EventTarget
    
     update()
     {
-        console.log(this.checkJump())
+        // console.log(this.checkJump())
         // if(PoseRecognition.prediction != null){
             // const predictionProb = PoseRecognition.prediction.map(e => parseFloat(e.probability.toFixed(2)));
             // const maxPredictionProb = Math.max(...predictionProb);
