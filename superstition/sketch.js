@@ -1,5 +1,6 @@
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
+    // window.gameScenes = [CatScene , CarScene , CrackScene , GhostScene];
     window.gameScenes = [CatScene , CarScene , CrackScene];
     var mgr = new SceneManager();
     mgr.wire();
