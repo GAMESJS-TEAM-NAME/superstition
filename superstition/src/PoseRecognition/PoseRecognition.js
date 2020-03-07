@@ -1,102 +1,79 @@
-class PoseRecognition {
-    constructor() {
-        this.poseNet = null;
-        this.video = null;
-        this.onPoses = this.onPoses.bind(this);
-        this.isLoaded = false;
-        this.pose = null;
-        this.prevPose = null;
-        this.isDebug = true;
+//TODO 
+/**
+ * TODO 
+ * Fix this file , is very ugly :(
+ */
 
 
-        this.brain = null;
-        this.poseLabel = null;
-    }
-
-    setup() {
-        this.video = createCapture(VIDEO);
-        this.video.hide();
-        this.poseNet = ml5.poseNet(this.video, _ => {
-            this.isLoaded = true;
-        });
-        this.poseNet.on('pose', this.onPoses);
 
 
-        let options = {
-            task: 'classification',
-            debug: true
+window.debug = true;
+
+const PoseRecognition = {
+    prediction: null,
+    pose: null,
+    run: () => {
+        let model, webcam, ctx, labelContainer, maxPredictions;
+        async function init() {
+            const modelInfo = {
+                model: './src/PoseRecognition/model/model.json',
+                metadata: './src/PoseRecognition/model/metadata.json',
+                weights: './src/PoseRecognition/model/weights.bin',
+            };
+            model = await tmPose.load(modelInfo.model, modelInfo.metadata);
+            maxPredictions = model.getTotalClasses();
+
+            // Convenience function to setup a webcam
+            const width = 400;
+            const height = 400;
+            const flip = true; // whether to flip the webcam
+            webcam = new tmPose.Webcam(width, height, flip); // width, height, flip
+            await webcam.setup(); // request access to the webcam
+            await webcam.play();
+            window.requestAnimationFrame(posenetLoop);
+            const canvas = document.getElementById("posenetCanvas");
+            console.log(canvas);
+            canvas.width = width; canvas.height = height;
+            ctx = canvas.getContext("2d");
         }
-        
 
-        this.brain = ml5.neuralNetwork(options);
-        const modelInfo = {
-            model: './src/PoseRecognition/model/model.json',
-            metadata: './src/PoseRecognition/model/metadata.json',
-            weights: './src/PoseRecognition/model/weights.bin',
-        };
-        this.brain.load(modelInfo, this.brainLoaded);
-    }
+        async function posenetLoop(timestamp) {
+            webcam.update(); // update the webcam frame
+            await predict();
+            window.requestAnimationFrame(posenetLoop);
+        }
 
-    update() {
-        background(255);
-        if (this.isDebug && this.pose) {
-            // console.log("Jump" , this.checkDuck() , "Duck" , this.checkJump());
-            const video = this.video;
-            translate(video.width, 0);
-            scale(-1.0, 1.0);
-            image(video, 0, 0);
-            const pose = this.pose;
+        async function predict() {
+            // Prediction #1: run input through posenet
+            // estimatePose can take in an image, video or canvas html element
+            const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+            // Prediction 2: run input through teachable machine classification model
+            const prediction = await model.predict(posenetOutput);
+            PoseRecognition.pose = pose;
+            PoseRecognition.prediction = prediction;
+            for (let i = 0; i < maxPredictions; i++) {
+                const classPrediction =
+                    prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+                // console.log(classPrediction);
+            }
 
-            const leftHip = pose.leftHip;
-            const rightHip = pose.rightHip;
-            fill(0, 255, 0);
-            stroke(255, 0, 0);
-            strokeWeight(15);
-            line(leftHip.x, leftHip.y, rightHip.x, rightHip.y);
+            // finally draw the poses
+            if(window.debug)
+                drawPose(pose);
+        }
 
-            for (let i = 0; i < pose.keypoints.length; i++) {
-                let x = pose.keypoints[i].position.x;
-                let y = pose.keypoints[i].position.y;
-                fill(0, 255, 0);
-                strokeWeight(2);
-                ellipse(x, y, 16, 16);
+        function drawPose(_pose) {
+            if (webcam.canvas) {
+                ctx.drawImage(webcam.canvas, 0, 0);
+                // draw the keypoints and skeleton
+                if (_pose) {
+                    const minPartConfidence = 0.5;
+                    tmPose.drawKeypoints(_pose.keypoints, minPartConfidence, ctx);
+                    tmPose.drawSkeleton(_pose.keypoints, minPartConfidence, ctx);
+                }
             }
         }
+        init();
     }
 
-    brainLoaded() {
-        console.log('pose classification ready!');
-        classifyPose();
-    }
-
-    onPoses(poses) {
-        if (poses.length) {
-            this.prevPose = this.pose;
-            this.pose = poses.filter(e => e.pose.score > 0.2)[0].pose;
-        }
-    }
-
-    getKeypoints() {
-        // console.log(this.pose)
-        return this.pose;
-    }
-
-    checkJump() {
-        if (this.pose && this.prevPose) {
-            const hipY = (this.pose.leftHip.y + this.pose.rightHip.y) / 2;
-            const prevHipY = (this.prevPose.leftHip.y + this.prevPose.rightHip.y) / 2;
-            return ((hipY - prevHipY > 50));
-        }
-        return false;
-    }
-
-    checkDuck() {
-        if (this.pose && this.prevPose) {
-            const hipY = (this.pose.leftHip.y + this.pose.rightHip.y) / 2;
-            const prevHipY = (this.prevPose.leftHip.y + this.prevPose.rightHip.y) / 2;
-            // console.log((hipY - prevHipY));
-            return ((hipY - prevHipY < -50));
-        }
-        return false;
-    }
 }

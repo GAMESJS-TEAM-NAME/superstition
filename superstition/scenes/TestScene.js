@@ -1,10 +1,10 @@
 function TestScene(){
-    let poseNet = new PoseRecognition();
-    this.setup = ()=>{
-        poseNet.setup();   
+    // let poseNet = new PoseRecognition();
+    this.setup = async ()=>{
+        // poseNet.setup();   
     }
 
-    this.draw = ()=>{
-        poseNet.update();
+    this.draw = async ()=>{
+        // poseNet.update();
     }
 }

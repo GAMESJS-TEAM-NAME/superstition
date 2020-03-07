@@ -1,37 +1,40 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<title>superstition</title>
-
-	<script src="libraries/p5.js"></script>
-	<script src="libraries/p5.dom.js"></script>
-	<script src="libraries/p5.sound.js"></script>
-	<!-- <script src="libraries/ml5.min.js"></script> -->
-	<script src="https://unpkg.com/ml5@0.4.2/dist/ml5.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
+	<script src="libraries/p5.js"></script> -->
+	<!-- <script src="libraries/p5.dom.js"></script> -->
+	<!-- <script src="libraries/p5.sound.js"></script> -->
+	<!-- <script src="https://unpkg.com/ml5@0.4.2/dist/ml5.min.js"></script> -->
+	
 	<script src="./libraries/scenemanager.js"></script>
-	<!-- <script src="./scenes/PoseRecognitionTrainScene.js"></script> -->
 	<script src="./src/PoseRecognition/PoseRecognition.js"></script>
 	<script src="./scenes/TestScene.js"></script>
 	<script src="./src/InputHandler/InputHandler.js"></script>
-	<script src="./scenes/PosenetTestScene.js"></script>
-	
 	<script src="sketch.js"></script>
 
 	<style>
 		body {
-			margin:0;
-			padding:0;
+			margin: 0;
+			padding: 0;
 			overflow: hidden;
 		}
+
 		canvas {
-			margin:auto;
+			margin: auto;
 		}
 	</style>
 </head>
-<body>
+
+<body onload="PoseRecognition.run()">
+	<div><canvas id="posenetCanvas"></canvas></div>
 </body>
+
 </html>
