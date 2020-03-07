@@ -7,7 +7,7 @@ function MainMenu(){
 
     this.draw = ()=>{
         background(bg);
-        if(keyIspressed)
+        if(keyIsPressed)
             this.sceneManager.showScene(CatScene);
     }
 }
