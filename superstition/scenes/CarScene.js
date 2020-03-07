@@ -69,7 +69,7 @@ function CarScene() {
         console.log("you win - car");
         toReset = true;
         car.visible = false;
-        this.sceneManager.showScene(CatScene);
+        this.sceneManager.showScene(CrackScene);
     }
     this.gameOver = () => {
         toReset = true;

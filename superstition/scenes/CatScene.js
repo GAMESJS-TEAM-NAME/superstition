@@ -28,12 +28,8 @@ function CatScene() {
     let toShowInfoText = true;
 
     this.draw = () => {
-        console.log(cat.position.x);
-
         if (toReset) 
             reset();
-
-        
 
         image(bg, 0, 0, width, height);
         setTimeout(_ => {

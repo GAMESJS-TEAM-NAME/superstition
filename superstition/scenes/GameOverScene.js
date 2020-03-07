@@ -5,7 +5,7 @@ function GameOverScene(){
 
     this.draw = ()=>{
         if(keyIsPressed){
-            this.sceneManager.showScene(CatScene);
+            this.sceneManager.showScene(CrackScene);
         }   
         console.log("Game over");
         background(255);

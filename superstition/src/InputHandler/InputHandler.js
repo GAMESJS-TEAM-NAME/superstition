@@ -60,7 +60,7 @@ class InputHandler extends EventTarget
             };
             const hipAvg = (hip.y1 + hip.y2) / 2;
             const prevHipAvg = (prevHip.y1 + prevHip.y2) / 2;
-            return ( hipAvg - prevHipAvg < -15 );
+            return ( hipAvg - prevHipAvg < -10 );
         }
         return false;
     }
