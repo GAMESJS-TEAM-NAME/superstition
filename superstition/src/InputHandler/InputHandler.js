@@ -43,7 +43,10 @@ class InputHandler extends EventTarget
             let a = (leftWrist.y < nose.y);
             let b = (rightWrist.y < nose.y);
             //XOR
-            return ( (a && !b) || (!a && b));
+            if(a)
+                return leftWrist
+            if(b)
+                return rightWrist
         }
         return false;
     }

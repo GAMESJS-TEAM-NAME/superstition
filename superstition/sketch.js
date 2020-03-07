@@ -8,7 +8,7 @@ function setup() {
     mgr.wire();
     //TODO change scene
     loadScenes(mgr);
-    mgr.showScene(LoadingScene);
+    mgr.showScene(GhostScene);
     window.debugView = false;
 
 }
