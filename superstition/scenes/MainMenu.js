@@ -8,6 +8,6 @@ function MainMenu(){
     this.draw = ()=>{
         background(bg);
         if(keyIsPressed)
-            this.sceneManager.showScene(CrackScene);
+            showRandomScene(this);
     }
 }

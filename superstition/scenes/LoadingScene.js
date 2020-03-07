@@ -1,10 +1,8 @@
 function LoadingScene(){
     this.setup = ()=>{
-        // poseNet.setup();   
+        // poseNet.setup();
+        
     }
-
-    
-
     this.draw = async ()=>{
         background(120);
         fill(0);

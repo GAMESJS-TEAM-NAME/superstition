@@ -11,7 +11,10 @@ function CrackScene() {
         person.position.x = 0;
         person.visible = false;
         toReset = true;
-        this.sceneManager.showScene(CarScene);
+        if(scene){
+            this.sceneManager.showScene(scene);
+        }else
+            showRandomScene(this);
     }
 
     this.setup = () => {
@@ -49,17 +52,7 @@ function CrackScene() {
             text("Jump over the cracks!", width / 2, height / 4);
             pop();
         }
-
-        // if(inputHandler.checkRotate()){
-        if (keyIsPressed && key.toUpperCase() == "W") {
-            console.log("You win korega!");
-            person.visible = false;
-            toReset = true;
-            this.sceneManager.showScene(CarScene);
-        }
-
         const isJumped = inputHandler.checkJump();
-        console.log(isJumped);
         if (isJumped) {
             person.velocity.y = -personVelocity * 2;
             setTimeout(_ => {
@@ -70,22 +63,18 @@ function CrackScene() {
         if (person.position.y >= height / 1.2) {
             person.position.y = height / 1.2;
         }
-        console.log(dist(person.position.x, person.position.y, crackPos.x, crackPos.y));
         if (dist(person.position.x, person.position.y, crackPos.x, crackPos.y) < crackPos.radius*2) {
             this.sceneSet(GameOverScene);
         }
 
 
         if (person.position.x > width + personWidth) {
-            // person.position.x = 0;
-            // person.visible = false;
-            // toReset = true;
-            this.sceneSet(CatScene);
-            // this.sceneManager.showScene(GameOverScene);
+            this.sceneSet(null);
         }
 
         drawSprites();
     }
+    
     this.keyPressed = () => {
         if (key.toUpperCase() == "D") {
             window.debugView = !window.debugView;

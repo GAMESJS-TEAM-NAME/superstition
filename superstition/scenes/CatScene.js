@@ -6,6 +6,7 @@ function CatScene() {
     let catVelocity = 8;
     let toReset = false;
     let inputHandler = null;
+    let bg = null;
 
     this.setup = () => {
         bg = loadImage("./assets/backgrounds/cat_level.png");
@@ -47,10 +48,10 @@ function CatScene() {
         }
 
         if (inputHandler.checkRotate()) {
-            console.log("You win!");
             cat.visible = false;
             toReset = true;
-            this.sceneManager.showScene(CarScene);
+            showRandomScene(this);
+            // this.sceneManager.showScene(CarScene);
         }
 
         if (cat.position.x > width + catWidth) {
