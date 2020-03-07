@@ -58,21 +58,27 @@ class PlayerModel {
 
     drawBody(arms, legs, head) {
         beginShape();
-        curveVertex(head.x, head.y);
+        //curveVertex(head.nose.x, head.nose.y);
+        curveVertex(head.right.eye.x, head.right.eye.y);
+        curveVertex(head.right.ear.x, head.right.ear.y);
         curveVertex(arms.right.shoulder.x, arms.right.shoulder.y);
         curveVertex(legs.right.hip.x, legs.right.hip.y);
         curveVertex(legs.left.hip.x, legs.left.hip.y);
         curveVertex(arms.left.shoulder.x, arms.left.shoulder.y);
-        curveVertex(head.x, head.y);
-        endShape();
+        curveVertex(head.left.ear.x, head.left.ear.y);
+        curveVertex(head.left.eye.x, head.left.eye.y);
+        
+        //curveVertex(head.nose.x, head.nose.y);
+        //Close up the shape
+        endShape(CLOSE);
 
 
-        let bodyWidth = Math.abs(arms.right.shoulder.x - arms.left.shoulder.x) * 1.3;
-        ellipse(
-            head.x,
-            head.y,
-            bodyWidth
-        )
+        // let bodyWidth = Math.abs(arms.right.shoulder.x - arms.left.shoulder.x) * 1.3;
+        // ellipse(
+        //     head.nose.x,
+        //     head.nose.y,
+        //     bodyWidth
+        // )
     }
 
     draw() {
@@ -142,17 +148,39 @@ class PlayerModel {
             }
 
             let head = {
-                x: PoseRecognition.pose.keypoints[0].position.x,
-                y: PoseRecognition.pose.keypoints[0].position.y
+                nose:  {
+                    x: PoseRecognition.pose.keypoints[0].position.x,
+                    y: PoseRecognition.pose.keypoints[0].position.y
+                },
+                left:  {
+                    eye: {
+                        x: PoseRecognition.pose.keypoints[1].position.x,
+                        y: PoseRecognition.pose.keypoints[1].position.y
+                    },
+                    ear: {
+                        x: PoseRecognition.pose.keypoints[3].position.x,
+                        y: PoseRecognition.pose.keypoints[3].position.y
+                    }
+                },
+                right:  {
+                    eye: {
+                        x: PoseRecognition.pose.keypoints[2].position.x,
+                        y: PoseRecognition.pose.keypoints[2].position.y
+                    },
+                    ear: {
+                        x: PoseRecognition.pose.keypoints[4].position.x,
+                        y: PoseRecognition.pose.keypoints[4].position.y
+                    }
+                }
             }
 
-
+            console.log(PoseRecognition.pose);
 
             //Draw the model
             push();
             //Model settings
             stroke(this.color);
-            strokeWeight(10)
+            strokeWeight(12)
             noFill();
             translate(width / 2, height / 2);
 
@@ -164,7 +192,7 @@ class PlayerModel {
             push();
 
             fill(this.color);
-
+            noStroke();
             this.drawBody(arms, legs, head);
             pop();
 
