@@ -3,7 +3,7 @@ function setup(){
     var mgr = new SceneManager();
     mgr.wire();
     //TODO change scene
-    mgr.showScene(PoseRecognitionTrainScene);
+    mgr.showScene(TestScene);
 }
 
 function draw(){

@@ -7,6 +7,10 @@ class PoseRecognition {
         this.pose = null;
         this.prevPose = null;
         this.isDebug = true;
+
+
+        this.brain = null;
+        this.poseLabel = null;
     }
 
     setup() {
@@ -16,6 +20,21 @@ class PoseRecognition {
             this.isLoaded = true;
         });
         this.poseNet.on('pose', this.onPoses);
+
+
+        let options = {
+            task: 'classification',
+            debug: true
+        }
+        
+
+        this.brain = ml5.neuralNetwork(options);
+        const modelInfo = {
+            model: './src/PoseRecognition/model/model.json',
+            metadata: './src/PoseRecognition/model/metadata.json',
+            weights: './src/PoseRecognition/model/weights.bin',
+        };
+        this.brain.load(modelInfo, this.brainLoaded);
     }
 
     update() {
@@ -45,10 +64,15 @@ class PoseRecognition {
         }
     }
 
+    brainLoaded() {
+        console.log('pose classification ready!');
+        classifyPose();
+    }
+
     onPoses(poses) {
         if (poses.length) {
             this.prevPose = this.pose;
-            this.pose = poses.filter(e=> e.pose.score > 0.2)[0].pose;
+            this.pose = poses.filter(e => e.pose.score > 0.2)[0].pose;
         }
     }
 
@@ -66,7 +90,7 @@ class PoseRecognition {
         return false;
     }
 
-    checkDuck(){
+    checkDuck() {
         if (this.pose && this.prevPose) {
             const hipY = (this.pose.leftHip.y + this.pose.rightHip.y) / 2;
             const prevHipY = (this.prevPose.leftHip.y + this.prevPose.rightHip.y) / 2;
