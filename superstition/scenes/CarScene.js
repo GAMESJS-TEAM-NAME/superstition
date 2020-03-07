@@ -7,10 +7,12 @@ function CarScene() {
     let carSpeed = 0.001;
     let carAcceleration = 1;
     let carSize = height / 10000;
-    let hint = "AVOID THE CAR";
-    let loaded = false;
-    let loss = false;
+    let carAcceleration = 1;
+    let hint;
+    let winText;
     let win = false;
+    let loss = false;
+    let loaded = false;
 
     this.keyPressed = ()=>{
         if(key.toUpperCase() == "D"){
@@ -33,17 +35,26 @@ function CarScene() {
         // blood.scale = 1.15;
         // blood.visible = false;
 
-        bg = loadImage("./assets/backgrounds/street_desert.png");
+        // bg = loadImage("./assets/backgrounds/street_desert.png");
+        bg = loadImage("./assets/backgrounds/street_synth.png");
         
         car = createSprite(width / 2, height / 1.7, 0, 0);
-        car.addAnimation("wheels", "./assets/car/car1.png", "./assets/car/car2.png");
+        car.addAnimation("wheels", "./assets/car/vwcar1.png", "./assets/car/vwcar2.png");
+        // car.addAnimation("wheels", "./assets/car/car1.png", "./assets/car/car2.png");
         car.scale = carSize;
 
-        hint = createSprite(width / 2, height / 2, 0, 0);
-        let hintAnimation = hint.addAnimation("flicker", "./assets/hints/hint1.png", "./assets/hints/hint2.png");
-        hint.scale = height / 2000;
-        hintAnimation.frameDelay = 10;
+        // winText = createSprite(width / 2, height / 2, 0, 0);
+        // let winTextAnimation = winText.addAnimation("flickerWin", "./assets/winScreen/gj1.png", "./assets/winScreen/gj2.png");
+        // winTextAnimation.frameDelay = 10;
+        // winText.scale = height / 2000;
 
+        hint = createSprite(width / 2, height / 2, 0, 0);
+        let hintAnimation = hint.addAnimation("flickerHint", "./assets/hints/hint1.png", "./assets/hints/hint2.png");
+        hintAnimation.frameDelay = 10;
+        hint.scale = height / 2000;
+
+        winText = loadAnimation("./assets/winScreen/gj1.png", "./assets/winScreen/gj2.png");
+        // winAnimation.frameDelay = 10;
 
         player = new PlayerModel(color(255, 0, 0));
     }
@@ -53,19 +64,15 @@ function CarScene() {
             loaded = true;
             hint.visible = false;
             car.visible = true;
-            
-            // clover.visible = false;
-            
+
             background(150);
             image(bg, 0, 0, width, height);
-
             if (loss) {
                 this.gameOver();
             } else if (win) {
                 this.winScreen();
             } else if (car.scale > width / 2000) {
                 drawSprites();
-
                 if (PoseRecognition.pose) {
                     loss = true;
                 }
@@ -80,14 +87,7 @@ function CarScene() {
             }
 
         } else if (!loaded) {
-            background(39, 44, 72);
-            // clover.visible = false;
-            // clover.rotation += 3;
-            car.visible = false;
-
-            hint.changeAnimation("flicker");
-
-            drawSprites();
+            loadingHint();
             // displayText(hint, width / 10, width / 2, height / 3.5);
         }
         // console.log(car.scale)
@@ -109,10 +109,17 @@ function CarScene() {
 
     this.winScreen = ()=> {
         background(39, 44, 72);
-        displayText("GJ", width / 10, width / 2, height / 3.5);
+        animation(winText, width / 2, height / 1.7);
         setTimeout(_=>{
             this.sceneManager.showScene(CatScene);
         } , 2000);
+    }
+
+    function loadingHint() {
+        background(39, 44, 72);
+        car.visible = false;
+        hint.changeAnimation("flickerHint");
+        drawSprites();
     }
 
     this.gameOver = ()=>{
@@ -127,4 +134,5 @@ function CarScene() {
             this.sceneManager.showScene(GameOverScene);
         } , 2000);
     }
+
 }
