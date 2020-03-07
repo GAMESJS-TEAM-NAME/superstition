@@ -2,19 +2,21 @@ function CatScene() {
     let cat;
     let catWidth = 50;
     let catHeight = 50;
+    const catScale = height / 5000;
     let catVelocity = 8;
     let toReset = false;
     let inputHandler = null;
 
     this.setup = () => {
-        cat = createSprite(-catWidth, height / 1.1, catWidth, catHeight);
-        cat.shapeColor = color(22, 25, 22);
-        bg = loadImage("./assets/backgrounds/city.png");
+        bg = loadImage("./assets/backgrounds/cat_level.png");
+        cat = createSprite(-catWidth, height / 1.3, catWidth, catHeight);
+        //cat.shapeColor = color(22, 25, 22);
         inputHandler = new InputHandler();
-        // let catAnimation = cat.addAnimation("test_animation", 
-        //                                     "./assets/cat/test_cat0001.png", 
-        //                                     "./assets/cat/test_cat0002.png");
-        // catAnimation.frameDelay = 10;        
+        let catAnimation = cat.addAnimation("test_animation", 
+                                            "./assets/cat/cat_walk1.png", 
+                                            "./assets/cat/cat_walk3.png");
+        catAnimation.frameDelay = 4;        
+        cat.scale = catScale
         cat.velocity.x = catVelocity;
     }
 
@@ -33,8 +35,6 @@ function CatScene() {
         if (toReset) 
             reset();
 
-        
-
         image(bg, 0, 0, width, height);
         setTimeout(_ => {
             toShowInfoText = false;
@@ -48,9 +48,8 @@ function CatScene() {
             pop();
         }
 
-        // if(inputHandler.checkRotate()){
-            if(keyIsPressed && key.toUpperCase() == "W"){
-            console.log("You win korega!");
+        if (inputHandler.checkRotate()) {
+            console.log("You win!");
             cat.visible = false;
             toReset = true;
             this.sceneManager.showScene(CarScene);
@@ -62,19 +61,13 @@ function CatScene() {
             this.sceneManager.showScene(GameOverScene);
         }
 
-        // cat.changeAnimation("test_animation");
+        cat.changeAnimation("test_animation");
         drawSprites();
     }
+
     this.keyPressed = ()=>{
         if(key.toUpperCase() == "D"){
             window.debugView = !window.debugView;
         }
-    }
-
-    function displayText(text) {
-        push();
-        fill(255);
-        textSize()
-        pop();
     }
 }
