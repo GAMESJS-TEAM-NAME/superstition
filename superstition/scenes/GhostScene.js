@@ -8,12 +8,9 @@ function GhostScene() {
     const maxHp = 255;
     let bg;
 
-    this.sceneSet = (scene) => {
-        // mills = millis();
-      
+    this.sceneSet = (scene) => {      
         ghost.visible = false;
         saltShaker.visible = false;
-        
 
         if(scene){
             this.sceneManager.showScene(scene);

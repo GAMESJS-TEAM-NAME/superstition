@@ -17,8 +17,8 @@ const calculateScale = (val) => {
 
 }
 
-const drawText = (str, x, y, size = 34 , color)=>{
-    fill(color);
+const drawText = (str, x, y, size = 34)=>{
+    //fill(color);
     textSize(size);
     textAlign(CENTER, CENTER);
     text(str, x, y);
