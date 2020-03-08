@@ -3,12 +3,12 @@ function CrackScene() {
     let personWidth = 50;
     let personHeight = 150;
     let personVelocity = 5;
-    let jumpSpeed = 2.2;
+    let jumpSpeed = 6;
     let toReset = false;
     let inputHandler = null;
     let img = null;
     let crackPos = null;
-
+    
     this.sceneSet = (scene)=> {
         person.position.x = 0;
         person.visible = false;
@@ -23,6 +23,9 @@ function CrackScene() {
         crackPos = { x: random(width/2 - 200 , width / 2 + 200), y: height - 100, radius: 50 };
         person = createSprite(-personWidth, height / 1.2, personWidth, personHeight);
         person.shapeColor = color(22, 255, 22);
+        person.addAnimation("running", "./assets/crack/char_anim/run0001.png","./assets/crack/char_anim/run0006.png");
+        person.addAnimation("jumping", "./assets/crack/char_anim/jump0001.png","./assets/crack/char_anim/jump0002.png");
+        person.scale = 0.2;
         bg = loadImage("./assets/backgrounds/crackbg.png");
         img = loadImage("./assets/crack/crack.png");
         inputHandler = new InputHandler();
@@ -61,6 +64,8 @@ function CrackScene() {
             pop();
         }
         const isJumped = inputHandler.checkJump();
+
+        //Double jump "bug" is here
         if (isJumped) {
             //Jump
             person.velocity.y = -personVelocity * jumpSpeed + 5;
@@ -70,12 +75,26 @@ function CrackScene() {
                 person.velocity.x = personVelocity;
             }, 250)
         }
+
+        let defaultY = height / 1.2;
+
         //RETURN TO GROUND
-        if (person.position.y >= height / 1.2) {
-            person.position.y = height / 1.2;
+        if (person.position.y >= defaultY) {
+            person.position.y = defaultY;
         }
         if (dist(person.position.x, person.position.y, crackPos.x, crackPos.y) < crackPos.radius*2) {
             this.sceneSet(GameOverScene);
+        }
+
+        if(person.position.y === defaultY)
+        {
+            person.changeAnimation("running");
+
+        }
+        else if(person.position.y < defaultY)
+        {
+            //console.log("WEEEEEEEEEEEEEEEEEEEEEEE");
+            person.changeAnimation("jumping");
         }
 
 

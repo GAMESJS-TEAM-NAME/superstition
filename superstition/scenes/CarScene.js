@@ -1,7 +1,7 @@
 function CarScene() {
     let car;
     let bg;
-    let carSpeed = 0.002;
+    let carSpeed = 0.001;
     let carAcceleration = 1;
     const carSize = height / 10000;
     let toReset = false;
