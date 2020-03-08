@@ -23,8 +23,8 @@ function CrackScene() {
         crackPos = { x: random(width/2 - 200 , width / 2 + 200), y: height - 100, radius: 50 };
         person = createSprite(-personWidth, height / 1.2, personWidth, personHeight);
         person.shapeColor = color(22, 255, 22);
-        person.addAnimation("running", "./assets/crack/char_anim/run0001.png","./assets/crack/char_anim/run0006.png");
-        person.addAnimation("jumping", "./assets/crack/char_anim/jump0001.png","./assets/crack/char_anim/jump0002.png");
+        person.addAnimation("running", "./assets/crack/char_anim/walkin1.png","./assets/crack/char_anim/walkin6.png");
+        person.addAnimation("jumping", "./assets/crack/char_anim/jump1.png","./assets/crack/char_anim/jump3.png");
         person.scale = 0.2;
         bg = loadImage("./assets/backgrounds/crackbg.png");
         img = loadImage("./assets/crack/crack.png");

@@ -23,6 +23,11 @@ function GameOverScene(){
         if (toReset)
             reset();
 
+        if(!inputHandler.checkPraying())
+        {
+            mills = millis();
+        }
+
         if(keyIsPressed || (millis() - mills > maxPrayer)){
             toReset = true;
             gameOver.visible = false;
@@ -37,10 +42,7 @@ function GameOverScene(){
         drawText("Pray for 2 seconds to retry" , width/2 , height / 2 + 200, 24);
         drawSprite(gameOver);
 
-        if(!inputHandler.checkPraying())
-        {
-            mills = millis();
-        }
+        
 
         let rectSize = map((millis() - mills), 0, maxPrayer, 0, width);
         rect(0, 0, rectSize, 0.1*height);
