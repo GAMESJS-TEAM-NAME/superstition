@@ -9,15 +9,19 @@ function GhostScene() {
     const leftBound = width / 2 - width / 4;
     const rightBound = width / 2 + width / 4;
     const maxHp = 255;
+    let attackDamage = 10;
     let bg;
-    let timer = 7000;
+    let defaultTimer = 7000;
+    let timer = defaultTimer;
     let time;
     let sign = -1;
+    let toShowInfoText = true;
+    let hp = maxHp;
 
     this.sceneSet = (scene) => {
         ghost.visible = false;
         saltShaker.visible = false;
-
+        // this.sceneManager.showScene(GhostScene); 
         if (scene) {
             this.sceneManager.showScene(scene);
         } else
@@ -48,6 +52,8 @@ function GhostScene() {
     function reset() {
         console.log("Resetting ghosts");
         toReset = false;
+        hp = maxHp;
+        mills = millis();
         ghost.visible = true;
         ghost.position.x = random(width / 2, width / 1.5);
     }
@@ -56,7 +62,9 @@ function GhostScene() {
         toReset = true;
         ghost.visible = false;
         saltShaker.visible = false;
-        showRandomScene(this);
+        
+        this.sceneSet(null);
+        // showRandomScene(this);
         // this.sceneManager.showScene(CrackScene);
     }
 
@@ -64,23 +72,28 @@ function GhostScene() {
         toReset = true;
         ghost.visible = false;
         saltShaker.visible = false;
-        this.sceneManager.showScene(GameOverScene);
-        //showRandomScene(this);
+        // this.sceneManager.showScene(GameOverScene);
+        this.sceneSet(GameOverScene);
+        return;
     }
 
-    let toShowInfoText = true;
-    let hp = maxHp;
-
     this.draw = () => {
+        console.log("Score:" , this.sceneManager.score , timer);
+        //Score dependent timer
+        timer = defaultTimer - (this.sceneManager.score * 100);
         time = millis() - mills;
 
-        if (time > timer) {
+        if (toReset)
+            reset();
+
+
+        if (time >= timer) {
+            console.log("Game over");
             this.gameOver();
             return;
         }
         // console.log(ghostDamage);
-        if (toReset)
-            reset();
+        
         // console.log(numGhosts);
         image(bg, 0, 0, width, height);
 
@@ -89,8 +102,7 @@ function GhostScene() {
         if (toShowInfoText) {
             push();
             fill(0, 255, 0);
-            textSize(34);
-            text("Raise your hand to salt and destroy!", width / 4, height / 4);
+            drawText("Raise your hand to salt and destroy!" , width / 2 , height/4 , 34);
             pop();
         }
 
@@ -129,11 +141,15 @@ function GhostScene() {
                 if (Math.abs(saltShakerX - ghost.position.x) < 200 &&
                     saltShakerY < ghost.position.y) {
                     if (hp > 0) {
-                        hp -= 4;
-                    } else {
-                        console.log("game over");
-                        hp = maxHp;
+                        hp -= attackDamage;
+                    } 
+                    else{
+
                     }
+                    // else {
+                    //     console.log("game over");
+                    //     hp = maxHp;
+                    // }
                     salting = true;
                     console.log("salting")
                 } else {
@@ -142,7 +158,7 @@ function GhostScene() {
             }
             if (hp <= 250 && salting == false) {
                 console.log("not salting");
-                hp += 2;
+                hp += attackDamage / 2;
             }
         }
 
@@ -162,5 +178,19 @@ function GhostScene() {
             toShowInfoText = false;
         }, 2000);
         this.sceneManager.player.draw();
+    }
+
+    this.keyPressed = ()=>{
+        if (key.toUpperCase() == "D") {
+            window.debugView = !window.debugView;
+        }
+        if(window.debugView){
+            if(key.toUpperCase() == "W"){
+                this.sceneManager.score++;
+            }
+            else if(key.toUpperCase() == "S"){
+                this.sceneManager.score--;
+            }
+        }
     }
 }

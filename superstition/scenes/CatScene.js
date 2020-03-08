@@ -7,6 +7,7 @@ function CatScene() {
     let toReset = false;
     let inputHandler = null;
     let bg = null;
+    let toShowInfoText = true;
 
     this.setup = () => {
         bg = loadImage("./assets/backgrounds/cat_level.png");
@@ -17,7 +18,6 @@ function CatScene() {
                                             "./assets/cat/cat_walk3.png");
         catAnimation.frameDelay = 4;        
         cat.scale = catScale
-        cat.velocity.x = catVelocity;
     }
 
     function reset(){
@@ -26,12 +26,13 @@ function CatScene() {
         toShowInfoText = true;
         cat.position.x = -catWidth;
     }
-    
-    let toShowInfoText = true;
-
     this.draw = () => {
+        console.log("Score:" , this.sceneManager.score)
+
         if (toReset) 
             reset();
+
+        cat.velocity.x = catVelocity * (this.sceneManager.score / 10 + 1);
 
         image(bg, 0, 0, width, height);
         
@@ -40,9 +41,7 @@ function CatScene() {
         }, 2000);
 
         if (toShowInfoText) {
-            // push();
             drawText("Quick! Rotate!" , width / 2 ,200 , 34 , color(0 , 0 , 0))
-            // pop();
         }
 
         if (inputHandler.checkRotate()) {
@@ -51,13 +50,14 @@ function CatScene() {
             this.sceneManager.score++;
             showRandomScene(this);
             // this.sceneManager.showScene(CatScene);
+
         }
 
         if (cat.position.x > width + catWidth) {
             cat.visible = false;
             toReset = true;
-            this.sceneManager.showScene(GameOverScene);
             // this.sceneManager.showScene(CatScene);
+            this.sceneManager.showScene(GameOverScene);
         }
 
         cat.changeAnimation("walking_animation");
@@ -68,6 +68,14 @@ function CatScene() {
     this.keyPressed = ()=>{
         if(key.toUpperCase() == "D"){
             window.debugView = !window.debugView;
+        }
+        if(window.debugView){
+            if(key.toUpperCase() == "W"){
+                this.sceneManager.score++;
+            }
+            else if(key.toUpperCase() == "S"){
+                this.sceneManager.score--;
+            }
         }
     }
 }
