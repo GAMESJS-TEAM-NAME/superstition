@@ -1,7 +1,7 @@
 function CrackScene() {
     let person;
-    let personWidth = 50;
-    let personHeight = 150;
+    let personWidth = 100;
+    let personHeight = 300;
     let personVelocity = 5;
     let jumpSpeed = 6;
     let toReset = false;
@@ -25,7 +25,7 @@ function CrackScene() {
         person.shapeColor = color(22, 255, 22);
         person.addAnimation("running", "./assets/crack/char_anim/walkin1.png","./assets/crack/char_anim/walkin6.png");
         person.addAnimation("jumping", "./assets/crack/char_anim/jump1.png","./assets/crack/char_anim/jump3.png");
-        person.scale = 0.2;
+        person.scale = 0.4;
         bg = loadImage("./assets/backgrounds/crackbg.png");
         img = loadImage("./assets/crack/crack.png");
         inputHandler = new InputHandler();
@@ -76,13 +76,13 @@ function CrackScene() {
             }, 250)
         }
 
-        let defaultY = height / 1.2;
+        let defaultY = height / 1.4;
 
         //RETURN TO GROUND
         if (person.position.y >= defaultY) {
             person.position.y = defaultY;
         }
-        if (dist(person.position.x, person.position.y, crackPos.x, crackPos.y) < crackPos.radius*2) {
+        if (dist(person.position.x, person.position.y, crackPos.x, crackPos.y) < crackPos.radius*4) {
             this.sceneSet(GameOverScene);
         }
 
