@@ -63,7 +63,8 @@ function CrackScene() {
             drawText("Jump over the crack" , width / 2 ,200 , 34 , color(0 , 255 , 0))
             pop();
         }
-        const isJumped = inputHandler.checkJump();
+        // const isJumped = inputHandler.checkJump();
+        const isJumped = (keyIsPressed && (key.toUpperCase() == "W"));
 
         //Double jump "bug" is here
         if (isJumped) {
@@ -72,7 +73,6 @@ function CrackScene() {
             person.velocity.x = personVelocity * jumpSpeed;
             setTimeout(_ => {
                 person.velocity.y = personVelocity * jumpSpeed;
-                person.velocity.x = personVelocity;
             }, 250)
         }
 
@@ -81,6 +81,7 @@ function CrackScene() {
         //RETURN TO GROUND
         if (person.position.y >= defaultY) {
             person.position.y = defaultY;
+            person.velocity.x = personVelocity;
         }
         if (dist(person.position.x, person.position.y, crackPos.x, crackPos.y) < crackPos.radius*2) {
             this.sceneSet(GameOverScene);
