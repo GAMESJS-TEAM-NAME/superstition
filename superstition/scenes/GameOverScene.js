@@ -2,7 +2,6 @@ function GameOverScene(){
     let gameOver;
     let toReset;
     let mills;
-    let isPraying;
     let inputHandler;
     let maxPrayer = 2000;
 
@@ -12,13 +11,11 @@ function GameOverScene(){
         let gameOverAnim = gameOver.addAnimation("overTxtFlicker", "./assets/hints/game_over1.png", "./assets/hints/game_over2.png")
         gameOverAnim.frameDelay = 5;
         gameOver.scale = width / 4000;
-        isPraying = false;
         inputHandler = new InputHandler();   
     }
 
     function reset() {
         toReset = false;
-        isPraying = false;
         gameOver.visible = true;  
     }
 
@@ -34,19 +31,12 @@ function GameOverScene(){
 
         background(26, 26, 51);
         gameOver.changeAnimation("overTxtFlicker");
-        //drawText("Game Over!" , width / 2 , height / 2 , 34 , 0);
+
         fill(126, 169, 152);
         drawText("Score: " + this.sceneManager.score , width / 2 , height / 2 + 100);
         drawText("Pray for 2 seconds to retry" , width/2 , height / 2 + 200, 24);
         drawSprite(gameOver);
-        // push();
-        // fill(0);
-        // textSize(34);
-        // textAlign(CENTER , CENTER);
-        // text("Game Over!" , width/2 , height/2);
-        // textSize(14);
-        // text("Press any key to retry..." , width/2 , height / 2 + 200);
-        // pop();
+
         if(!inputHandler.checkPraying())
         {
             mills = millis();
@@ -54,8 +44,6 @@ function GameOverScene(){
 
         let rectSize = map((millis() - mills), 0, maxPrayer, 0, width);
         rect(0, 0, rectSize, 0.1*height);
-
-        //console.log(isPraying);
     }
 
 }
