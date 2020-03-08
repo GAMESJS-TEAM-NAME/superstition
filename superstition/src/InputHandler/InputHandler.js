@@ -40,13 +40,17 @@ class InputHandler extends EventTarget
             // const leftWristNoseDist = dist(leftWrist.x , leftWrist.y , nose.x , nose.y);
             // const rightWristNoseDist = dist(rightWrist.x , rightWrist.y , nose.x , nose.y);
             // console.log("Dist" , );
-            let a = (leftWrist.y < nose.y);
-            let b = (rightWrist.y < nose.y);
-            //XOR
-            if(a)
-                return leftWrist
-            if(b)
-                return rightWrist
+
+
+            // let a = (leftWrist.y < nose.y);
+            // let b = (rightWrist.y < nose.y);
+            // //XOR
+            // if(a)
+            //     return leftWrist
+            // if(b)
+            //     return rightWrist
+
+            return leftWrist.y > rightWrist.y ? rightWrist : leftWrist;
         }
         return false;
     }

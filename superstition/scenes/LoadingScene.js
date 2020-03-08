@@ -9,7 +9,7 @@ function LoadingScene(){
 
         if(PoseRecognition.isLoaded){
             background(255);
-            this.sceneManager.showScene(MainMenu);
+            this.sceneManager.showScene(GhostScene);
             // showRandomScene(this);
             // this.sceneManager.showScene(CatScene);
         }

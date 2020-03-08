@@ -19,8 +19,8 @@ const PoseRecognition = {
             // Convenience function to setup a webcam
             const width = 150;
             const height = 150;
-            window.posenetCanvasWidth = 150;
-            window.posenetCanvasHeight = 150;
+            window.posenetCanvasWidth = width;
+            window.posenetCanvasHeight = height;
             webcam = new tmPose.Webcam(width, height, true); // width, height, flip
             await webcam.setup(); // request access to the webcam
             await webcam.play();

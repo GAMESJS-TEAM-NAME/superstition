@@ -22,7 +22,7 @@ function GhostScene() {
         bg = loadImage('./assets/backgrounds/basement_lighter.png');
         mills = millis();
         
-        ghost = createSprite(random(width / 2 - 300, width / 2 + 300), random(height / 2 + 200, height / 2 + 200));
+        ghost = createSprite(random(width / 2 - 400, width / 2 + 400), random(height / 2 + 200, height / 2 + 200));
         let ghostAnimation = ghost.addAnimation('floating', './assets/ghost/ghost1.png', './assets/ghost/ghost2.png');
         ghostAnimation.frameDelay = 10;   
         ghostScale = width / random(2000, 3000);
@@ -41,7 +41,6 @@ function GhostScene() {
         console.log("Resetting ghosts");
         toReset = false;
         ghost.visible = true;
-        ghost.position.x = random(width / 2, width / 1.5);
         ghost.position.x = random(width / 2, width / 1.5);
     }
 
@@ -99,7 +98,11 @@ function GhostScene() {
 
             if (wrist) {
                 let saltShakerX = map(wrist.x , 0 , window.posenetCanvasWidth , 0 , width);
-                let saltShakerY = map(wrist.y , 0 , window.posenetCanvasHeight , 0 , height);
+                //let saltShakerY = map(wrist.y , 0 , window.posenetCanvasHeight , 0 , height);
+                let saltShakerY = height/3;
+
+                //ellipse(wrist.x, wrist.y, 50);
+                console.log(saltShakerX, saltShakerY);
 
                 saltShaker.visible = true;
                 saltShaker.velocity.x = (saltShakerX - saltShaker.position.x) / 10;

@@ -6,7 +6,7 @@ function setup() {
     //TODO change scene
     loadScenes(mgr);
     mgr.showScene(LoadingScene);
-    window.debugView = false;
+    window.debugView = true;
     mgr.player = new PlayerModel(color(255,60,150), width*0.1, height);
     mgr.score = 0;
 

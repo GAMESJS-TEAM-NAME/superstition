@@ -112,10 +112,10 @@ function CrackScene() {
         }
     }
 
-    function displayText(text) {
-        push();
-        fill(255);
-        textSize()
-        pop();
-    }
+    // function displayText(text) {
+    //     push();
+    //     fill(255);
+    //     textSize()
+    //     pop();
+    // }
 }
