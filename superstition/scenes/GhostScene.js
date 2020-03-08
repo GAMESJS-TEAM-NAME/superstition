@@ -3,32 +3,40 @@ function GhostScene() {
     let saltShaker;
     let ghost
     let toReset = false;
-    let inputHandler = null; 
+    let inputHandler = null;
     let ghostScale;
+    let ghostSpeed = -5;
+    const leftBound = width / 2 - width / 4;
+    const rightBound = width / 2 + width / 4;
     const maxHp = 255;
     let bg;
+    let timer = 7000;
+    let time;
+    let sign = -1;
 
-    this.sceneSet = (scene) => {      
+    this.sceneSet = (scene) => {
         ghost.visible = false;
         saltShaker.visible = false;
 
-        if(scene){
+        if (scene) {
             this.sceneManager.showScene(scene);
-        }else
+        } else
             showRandomScene(this);
     }
 
     this.setup = () => {
         bg = loadImage('./assets/backgrounds/basement_lighter.png');
         mills = millis();
-        
-        ghost = createSprite(random(width / 2 - 400, width / 2 + 400), random(height / 2 + 200, height / 2 + 200));
+
+        ghost = createSprite(random(leftBound, rightBound), height / 2 + 200);
         let ghostAnimation = ghost.addAnimation('floating', './assets/ghost/ghost1.png', './assets/ghost/ghost2.png');
-        ghostAnimation.frameDelay = 10;   
+        ghostAnimation.frameDelay = 10;
         ghostScale = width / random(2000, 3000);
         ghost.scale = ghostScale;
-        if (Math.random() > 0.5)
+        if (Math.random() < 0.5) {
+            ghostSpeed = -ghostSpeed;
             ghost.mirrorX(-1);
+        }
 
         saltShaker = createSprite(0, 0, 0, 0);
         saltShaker.addAnimation("salting", "./assets/saltshaker/saltshaker.png");
@@ -62,15 +70,15 @@ function GhostScene() {
 
     let toShowInfoText = true;
     let hp = maxHp;
-    
-    this.draw = () => {
-        let time = millis() - mills;
 
-        if (time > 7000) {
+    this.draw = () => {
+        time = millis() - mills;
+
+        if (time > timer) {
             console.log("loss");
             this.gameOver();
             return;
-       }
+        }
         // console.log(ghostDamage);
         if (toReset)
             reset();
@@ -78,28 +86,39 @@ function GhostScene() {
         image(bg, 0, 0, width, height);
 
         // console.log(ghosts.length);
-        
+
         if (toShowInfoText) {
             push();
             fill(0, 255, 0);
             textSize(34);
-            text("Raise your hand to salt and destroy!", width / 4  , height / 4);
+            text("Raise your hand to salt and destroy!", width / 4, height / 4);
             pop();
         }
-        
-        if (hp < 10) 
+
+        if (hp < 10)
             this.winScreen();
         else {
-            ghost.position.y += sin(frameCount/10);
-        
+            ghost.position.y += sin(frameCount / 10) * 2;
+
+            // console.log("ghost pos" + ghost.position.x + " width: " + (width / 2 + 400));
             
+            if (ghost.position.x > (rightBound) ||
+                ghost.position.x < (leftBound)) {
+                ghostSpeed = -ghostSpeed;
+                ghost.mirrorX(sign);
+                sign = -sign;
+                console.log("mirror pls");
+            }
+
+            ghost.setSpeed(ghostSpeed, 1);
+
             let wrist = inputHandler.checkSalting();
             let salting = false;
 
             if (wrist) {
-                let saltShakerX = map(wrist.x , 0 , window.posenetCanvasWidth , 0 , width);
+                let saltShakerX = map(wrist.x, 0, window.posenetCanvasWidth, 0, width);
                 //let saltShakerY = map(wrist.y , 0 , window.posenetCanvasHeight , 0 , height);
-                let saltShakerY = height/3;
+                let saltShakerY = height / 3;
 
                 //ellipse(wrist.x, wrist.y, 50);
                 console.log(saltShakerX, saltShakerY);
@@ -120,7 +139,7 @@ function GhostScene() {
                     }
                     salting = true;
                     console.log("salting")
-                }  else {
+                } else {
                     salting = false;
                 }
                 console.log(hp);
@@ -130,11 +149,19 @@ function GhostScene() {
                 hp += 2;
             }
         }
-            
+
         tint(255, hp);
         ghost;
         drawSprite(ghost);
-        
+
+        let rectSize = map(time, 0, timer, width, 0);
+
+        push();
+        fill(color(255, 255, 255, 100));
+        noStroke();
+        rect(0, height - height * 0.05, rectSize, height * 0.05);
+        pop();
+
         setTimeout(_ => {
             toShowInfoText = false;
         }, 2000);
