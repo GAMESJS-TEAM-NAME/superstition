@@ -1,7 +1,7 @@
 function CarScene() {
     let car;
     let bg;
-    let carSpeed = 0.001;
+    let carSpeed = 0.0001;
     let carAcceleration = 1;
     const carSize = height / 10000;
     let toReset = false;
@@ -10,6 +10,14 @@ function CarScene() {
     this.keyPressed = () => {
         if (key.toUpperCase() == "D") {
             window.debugView = !window.debugView;
+        }
+        if(window.debugView){
+            if(key.toUpperCase() == "W"){
+                this.sceneManager.score++;
+            }
+            else if(key.toUpperCase() == "S"){
+                this.sceneManager.score--;
+            }
         }
     }
 
@@ -48,13 +56,15 @@ function CarScene() {
         } else {
             car.changeAnimation("wheels");
             drawSprites();
-            updateScale();
+            this.updateScale();
             this.sceneManager.player.draw();
         }
     }
 
-    function updateScale() {
-        carAcceleration += 0.1;
+    this.updateScale = ()=>{
+        console.log(this.sceneManager.score);
+        // carAcceleration += 0.1;
+        carAcceleration += (this.sceneManager.score / 10 + 0.1);
         car.scale += carSpeed * carAcceleration;
     }
 
@@ -74,13 +84,14 @@ function CarScene() {
         toReset = true;
         car.visible = false;
         this.sceneManager.score++;
-        showRandomScene(this);
-        // this.sceneManager.showScene(CrackScene);
+        // showRandomScene(this);
+        this.sceneManager.showScene(CarScene);
     }
     this.gameOver = () => {
         toReset = true;
         car.visible = false;
-        this.sceneManager.showScene(GameOverScene);
+        // this.sceneManager.showScene(GameOverScene);
+        this.sceneManager.showScene(CarScene);
     }
 
 }

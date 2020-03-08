@@ -1,9 +1,4 @@
-class InputHandler extends EventTarget {
-    constructor() {
-        super()
-        this.minConfidence = 0.7;
-    }
-
+class InputHandler {
     checkPraying() {
         if (PoseRecognition.pose != null) {
             let leftWrist = {
@@ -46,19 +41,6 @@ class InputHandler extends EventTarget {
                 x: PoseRecognition.pose.keypoints[0].position.x,
                 y: PoseRecognition.pose.keypoints[0].position.y
             }
-            // const leftWristNoseDist = dist(leftWrist.x , leftWrist.y , nose.x , nose.y);
-            // const rightWristNoseDist = dist(rightWrist.x , rightWrist.y , nose.x , nose.y);
-            // console.log("Dist" , );
-
-
-            // let a = (leftWrist.y < nose.y);
-            // let b = (rightWrist.y < nose.y);
-            // //XOR
-            // if(a)
-            //     return leftWrist
-            // if(b)
-            //     return rightWrist
-
             return leftWrist.y > rightWrist.y ? rightWrist : leftWrist;
         }
         return false;
@@ -96,31 +78,5 @@ class InputHandler extends EventTarget {
         }
         return false;
     }
-
-
-    update() {
-        // console.log(this.checkJump())
-        // if(PoseRecognition.prediction != null){
-        // const predictionProb = PoseRecognition.prediction.map(e => parseFloat(e.probability.toFixed(2)));
-        // const maxPredictionProb = Math.max(...predictionProb);
-        // const highestPrediction = PoseRecognition.prediction.filter(e => e.probability.toFixed(2) == maxPredictionProb)[0];
-        // console.log(highestPrediction.className);
-        // this.dispatchEvent(new Event(highestPrediction.className))   
-        // }
-
-        //         this.dispatchEvent(new Event('jump'));
-
-
-        //     if(keyPressed === 'A')
-        //         this.dispatchEvent(new Event('left'));
-
-        //     if(keyPressed === 'D')
-        //         this.dispatchEvent(new Event('right'));
-
-        //     if(keyPressed === 'S')
-        //         this.dispatchEvent(new Event('duck'));
-        // }
-    }
-
 
 }

@@ -21,7 +21,10 @@ function MainMenu(){
             if (mouseIsPressed) {
                 titleText.visible = false;
                 playButton.visible = false;
+
                 showRandomScene(this);
+                //TODO
+                // this.sceneManager.showScene(CatScene);
             }
             playButton.scale = width / 6000;
         } else {

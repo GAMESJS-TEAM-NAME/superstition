@@ -16,7 +16,7 @@ function GameOverScene(){
 
     }
 
-    function reset() {
+    function reset(){
         toReset = false;
         gameOver.visible = true;  
         mills = millis();
@@ -32,9 +32,12 @@ function GameOverScene(){
         }
 
         if(keyIsPressed || (millis() - mills > maxPrayer)){
+            this.sceneManager.score = 0;
             toReset = true;
             gameOver.visible = false;
-            showRandomScene(this);
+            // showRandomScene(this);
+            //TODO 
+            this.sceneManager.showScene(GhostScene);
         }   
 
         background(26, 26, 51);
@@ -49,7 +52,7 @@ function GameOverScene(){
 
         let rectSize = map((millis() - mills), 0, maxPrayer, 0, width);
         rect(0, 0, rectSize, 0.1*height);
-        
+
         this.sceneManager.player.draw();
     }
 
