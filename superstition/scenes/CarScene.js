@@ -20,7 +20,7 @@ function CarScene() {
         bg = loadImage("./assets/backgrounds/car_city.png");
         // bg = loadImage("./assets/backgrounds/street_synth.png");
         car = createSprite(width / 2, height / 1.7, 0, 0);
-        car.addAnimation("wheels", "./assets/car/car1.png", "./assets/car/car2.png");
+        car.addAnimation("wheels", "./assets/car/car_outline1.png", "./assets/car/car_outline2.png");
         car.scale = carSize;
     }
 
