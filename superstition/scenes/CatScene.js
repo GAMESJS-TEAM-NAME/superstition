@@ -48,16 +48,16 @@ function CatScene() {
             cat.visible = false;
             toReset = true;
             this.sceneManager.score++;
-            // showRandomScene(this);
-            this.sceneManager.showScene(CatScene);
+            showRandomScene(this);
+            // this.sceneManager.showScene(CatScene);
 
         }
 
         if (cat.position.x > width + catWidth) {
             cat.visible = false;
             toReset = true;
-            this.sceneManager.showScene(CatScene);
-            // this.sceneManager.showScene(GameOverScene);
+            // this.sceneManager.showScene(CatScene);
+            this.sceneManager.showScene(GameOverScene);
         }
 
         cat.changeAnimation("walking_animation");

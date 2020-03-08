@@ -88,14 +88,14 @@ function CarScene() {
         toReset = true;
         car.visible = false;
         this.sceneManager.score++;
-        // showRandomScene(this);
-        this.sceneManager.showScene(CarScene);
+        showRandomScene(this);
+        // this.sceneManager.showScene(CarScene);
     }
     this.gameOver = () => {
         toReset = true;
         car.visible = false;
-        // this.sceneManager.showScene(GameOverScene);
-        this.sceneManager.showScene(CarScene);
+        this.sceneManager.showScene(GameOverScene);
+        // this.sceneManager.showScene(CarScene);
     }
 
 }

@@ -15,6 +15,8 @@ function GhostScene() {
     let timer = defaultTimer;
     let time;
     let sign = -1;
+    let toShowInfoText = true;
+    let hp = maxHp;
 
     this.sceneSet = (scene) => {
         ghost.visible = false;
@@ -50,6 +52,8 @@ function GhostScene() {
     function reset() {
         console.log("Resetting ghosts");
         toReset = false;
+        hp = maxHp;
+        mills = millis();
         ghost.visible = true;
         ghost.position.x = random(width / 2, width / 1.5);
     }
@@ -58,6 +62,7 @@ function GhostScene() {
         toReset = true;
         ghost.visible = false;
         saltShaker.visible = false;
+        
         this.sceneSet(null);
         // showRandomScene(this);
         // this.sceneManager.showScene(CrackScene);
@@ -67,17 +72,13 @@ function GhostScene() {
         toReset = true;
         ghost.visible = false;
         saltShaker.visible = false;
-        mills = millis();
         // this.sceneManager.showScene(GameOverScene);
         this.sceneSet(GameOverScene);
         return;
     }
 
-    let toShowInfoText = true;
-    let hp = maxHp;
-
     this.draw = () => {
-        console.log("Score:" , this.sceneManager.score , time);
+        console.log("Score:" , this.sceneManager.score , timer);
         //Score dependent timer
         timer = defaultTimer - (this.sceneManager.score * 100);
         time = millis() - mills;
@@ -101,8 +102,7 @@ function GhostScene() {
         if (toShowInfoText) {
             push();
             fill(0, 255, 0);
-            textSize(34);
-            text("Raise your hand to salt and destroy!", width / 4, height / 4);
+            drawText("Raise your hand to salt and destroy!" , width / 2 , height/4 , 34);
             pop();
         }
 
@@ -142,10 +142,14 @@ function GhostScene() {
                     saltShakerY < ghost.position.y) {
                     if (hp > 0) {
                         hp -= attackDamage;
-                    } else {
-                        console.log("game over");
-                        hp = maxHp;
+                    } 
+                    else{
+
                     }
+                    // else {
+                    //     console.log("game over");
+                    //     hp = maxHp;
+                    // }
                     salting = true;
                     console.log("salting")
                 } else {

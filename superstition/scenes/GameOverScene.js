@@ -35,9 +35,9 @@ function GameOverScene(){
             this.sceneManager.score = 0;
             toReset = true;
             gameOver.visible = false;
-            // showRandomScene(this);
+            showRandomScene(this);
             //TODO 
-            this.sceneManager.showScene(GhostScene);
+            // this.sceneManager.showScene(GhostScene);
         }   
 
         background(26, 26, 51);

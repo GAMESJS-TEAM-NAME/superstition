@@ -11,7 +11,7 @@ function LoadingScene(){
             background(255);
             // this.sceneManager.showScene(MainMenu);
             // showRandomScene(this);
-            this.sceneManager.showScene(GhostScene);
+            this.sceneManager.showScene(CrackScene);
         }
     }
 }
