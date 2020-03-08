@@ -17,6 +17,8 @@ function CrackScene() {
             this.sceneManager.showScene(scene);
         }else
             showRandomScene(this);
+        
+        return;
     }
 
     this.setup = () => {
@@ -44,6 +46,9 @@ function CrackScene() {
     
 
     this.draw = () => {
+
+        console.log("Score: " , this.sceneManager.score);
+
         if (toReset)
             reset();
 
@@ -63,14 +68,13 @@ function CrackScene() {
             drawText("Jump over the crack" , width / 2 ,200 , 34 , color(0 , 255 , 0))
             pop();
         }
-        // const isJumped = inputHandler.checkJump();
-        const isJumped = (keyIsPressed && (key.toUpperCase() == "W"));
+        const isJumped = (keyIsPressed && (key.toUpperCase() == "J")) || inputHandler.checkJump();
 
         //Double jump "bug" is here
         if (isJumped) {
             //Jump
             person.velocity.y = -personVelocity * jumpSpeed + 5;
-            person.velocity.x = personVelocity * jumpSpeed;
+            person.velocity.x = personVelocity * jumpSpeed * (this.sceneManager.score / 10 + 1);
             setTimeout(_ => {
                 person.velocity.y = personVelocity * jumpSpeed;
             }, 250)
@@ -81,7 +85,7 @@ function CrackScene() {
         //RETURN TO GROUND
         if (person.position.y >= defaultY) {
             person.position.y = defaultY;
-            person.velocity.x = personVelocity;
+            person.velocity.x = personVelocity * (this.sceneManager.score / 10 + 1);
         }
         if (dist(person.position.x, person.position.y, crackPos.x, crackPos.y) < crackPos.radius*4) {
             this.sceneSet(GameOverScene);
@@ -111,6 +115,14 @@ function CrackScene() {
     this.keyPressed = () => {
         if (key.toUpperCase() == "D") {
             window.debugView = !window.debugView;
+        }
+        if(window.debugView){
+            if(key.toUpperCase() == "W"){
+                this.sceneManager.score++;
+            }
+            else if(key.toUpperCase() == "S"){
+                this.sceneManager.score--;
+            }
         }
     }
 

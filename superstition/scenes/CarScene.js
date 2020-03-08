@@ -89,6 +89,7 @@ function CarScene() {
         car.visible = false;
         this.sceneManager.score++;
         showRandomScene(this);
+        return;
         // this.sceneManager.showScene(CarScene);
     }
     this.gameOver = () => {
@@ -96,6 +97,7 @@ function CarScene() {
         car.visible = false;
         this.sceneManager.showScene(GameOverScene);
         // this.sceneManager.showScene(CarScene);
+        return;
     }
 
 }

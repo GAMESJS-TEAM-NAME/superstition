@@ -49,6 +49,7 @@ function CatScene() {
             toReset = true;
             this.sceneManager.score++;
             showRandomScene(this);
+            return;
             // this.sceneManager.showScene(CatScene);
 
         }
@@ -58,6 +59,7 @@ function CatScene() {
             toReset = true;
             // this.sceneManager.showScene(CatScene);
             this.sceneManager.showScene(GameOverScene);
+            return;
         }
 
         cat.changeAnimation("walking_animation");

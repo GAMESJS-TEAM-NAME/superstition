@@ -9,9 +9,9 @@ function LoadingScene(){
 
         if(PoseRecognition.isLoaded){
             background(255);
-            // this.sceneManager.showScene(MainMenu);
+            this.sceneManager.showScene(MainMenu);
             // showRandomScene(this);
-            this.sceneManager.showScene(CrackScene);
+            // this.sceneManager.showScene(CrackScene);
         }
     }
 }
