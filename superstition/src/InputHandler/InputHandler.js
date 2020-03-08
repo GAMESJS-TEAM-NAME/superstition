@@ -16,7 +16,7 @@ class InputHandler extends EventTarget
                 y: PoseRecognition.pose.keypoints[10].position.y
             }
             const distBetweenWrist = dist(leftWrist.x , leftWrist.y , rightWrist.x , rightWrist.y)
-            if(distBetweenWrist < 50){
+            if(distBetweenWrist < 20){
                 return true;
             }
         }

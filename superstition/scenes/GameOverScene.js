@@ -12,11 +12,15 @@ function GameOverScene(){
         gameOverAnim.frameDelay = 5;
         gameOver.scale = width / 4000;
         inputHandler = new InputHandler();   
+        mills = millis();
+
     }
 
     function reset() {
         toReset = false;
         gameOver.visible = true;  
+        mills = millis();
+
     }
 
     this.draw = ()=>{
