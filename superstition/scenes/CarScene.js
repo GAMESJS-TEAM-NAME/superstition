@@ -1,6 +1,7 @@
 function CarScene() {
     let car;
     let bg;
+    let dream;
     let carSpeed = 0.001;
     let carAcceleration = 1;
     const carSize = height / 10000;
@@ -15,6 +16,7 @@ function CarScene() {
 
     this.setup = () => {
         bg = loadImage("./assets/backgrounds/car_city.png");
+        dream = loadImage("./assets/backgrounds/dream.png");
         // bg = loadImage("./assets/backgrounds/street_synth.png");
         car = createSprite(width / 2, height / 1.7, 0, 0);
         car.addAnimation("wheels", "./assets/car/car_outline1.png", "./assets/car/car_outline2.png");
@@ -49,8 +51,10 @@ function CarScene() {
             car.changeAnimation("wheels");
             drawSprites();
             updateScale();
+            image(dream, 0, 0, width, height);
             this.sceneManager.player.draw();
         }
+
     }
 
     function updateScale() {
