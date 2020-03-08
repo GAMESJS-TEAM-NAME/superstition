@@ -75,7 +75,6 @@ function GhostScene() {
         time = millis() - mills;
 
         if (time > timer) {
-            console.log("loss");
             this.gameOver();
             return;
         }
@@ -107,7 +106,6 @@ function GhostScene() {
                 ghostSpeed = -ghostSpeed;
                 ghost.mirrorX(sign);
                 sign = -sign;
-                console.log("mirror pls");
             }
 
             ghost.setSpeed(ghostSpeed, 1);
@@ -121,7 +119,6 @@ function GhostScene() {
                 let saltShakerY = height / 3;
 
                 //ellipse(wrist.x, wrist.y, 50);
-                console.log(saltShakerX, saltShakerY);
 
                 saltShaker.visible = true;
                 saltShaker.velocity.x = (saltShakerX - saltShaker.position.x) / 10;
@@ -142,7 +139,6 @@ function GhostScene() {
                 } else {
                     salting = false;
                 }
-                console.log(hp);
             }
             if (hp <= 250 && salting == false) {
                 console.log("not salting");
@@ -165,5 +161,6 @@ function GhostScene() {
         setTimeout(_ => {
             toShowInfoText = false;
         }, 2000);
+        this.sceneManager.player.draw();
     }
 }

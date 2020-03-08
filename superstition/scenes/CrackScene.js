@@ -93,7 +93,6 @@ function CrackScene() {
         }
         else if(person.position.y < defaultY)
         {
-            //console.log("WEEEEEEEEEEEEEEEEEEEEEEE");
             person.changeAnimation("jumping");
         }
 
@@ -104,6 +103,8 @@ function CrackScene() {
         }
 
         drawSprites();
+        this.sceneManager.player.draw();
+
     }
 
     this.keyPressed = () => {

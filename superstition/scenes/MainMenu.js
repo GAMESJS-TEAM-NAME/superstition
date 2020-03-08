@@ -17,10 +17,6 @@ function MainMenu(){
 
     this.draw = ()=>{
         background(26, 26, 51);
-        //image(bg, 0, 0, width, height);
-        //titleText.scale = width / 4000;
-
-        console.log(playButton);
         if (playButton.overlapPoint(mouseX, mouseY)) {
             if (mouseIsPressed) {
                 titleText.visible = false;

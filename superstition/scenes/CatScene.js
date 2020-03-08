@@ -12,7 +12,7 @@ function CatScene() {
         bg = loadImage("./assets/backgrounds/cat_level.png");
         cat = createSprite(-catWidth, height / 1.3, catWidth, catHeight);
         inputHandler = new InputHandler();
-        let catAnimation = cat.addAnimation("test_animation", 
+        let catAnimation = cat.addAnimation("walking_animation", 
                                             "./assets/cat/cat_walk1.png", 
                                             "./assets/cat/cat_walk3.png");
         catAnimation.frameDelay = 4;        
@@ -34,7 +34,7 @@ function CatScene() {
             reset();
 
         image(bg, 0, 0, width, height);
-        this.sceneManager.player.draw();
+        
         setTimeout(_ => {
             toShowInfoText = false;
         }, 2000);
@@ -60,8 +60,9 @@ function CatScene() {
             // this.sceneManager.showScene(CatScene);
         }
 
-        cat.changeAnimation("test_animation");
+        cat.changeAnimation("walking_animation");
         drawSprites();
+        this.sceneManager.player.draw();
     }
 
     this.keyPressed = ()=>{

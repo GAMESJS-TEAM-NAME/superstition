@@ -20,7 +20,6 @@ function GameOverScene(){
         toReset = false;
         gameOver.visible = true;  
         mills = millis();
-
     }
 
     this.draw = ()=>{
@@ -50,6 +49,8 @@ function GameOverScene(){
 
         let rectSize = map((millis() - mills), 0, maxPrayer, 0, width);
         rect(0, 0, rectSize, 0.1*height);
+        
+        this.sceneManager.player.draw();
     }
 
 }

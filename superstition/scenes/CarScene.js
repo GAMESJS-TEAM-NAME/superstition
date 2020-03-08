@@ -6,7 +6,6 @@ function CarScene() {
     const carSize = height / 10000;
     let toReset = false;
     let toShowInfoText = true;
-    let backgroundIndex = 0;
 
     this.keyPressed = () => {
         if (key.toUpperCase() == "D") {
@@ -15,8 +14,6 @@ function CarScene() {
     }
 
     this.setup = () => {
-        window.debugView = true;
-
         bg = loadImage("./assets/backgrounds/car_city.png");
         // bg = loadImage("./assets/backgrounds/street_synth.png");
         car = createSprite(width / 2, height / 1.7, 0, 0);
