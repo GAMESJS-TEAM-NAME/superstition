@@ -7,9 +7,9 @@ This project won 2nd place !
 - node
 - npm 
 - p5 manager:
-``` ~ npm i -g p5-manager ```
+``` $ npm i -g p5-manager ```
 
 ## Run
 ```
-~ p5 s
+$ p5 s
 ```
